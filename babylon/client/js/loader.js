@@ -108,7 +108,27 @@ var loadScene = function (name, incremental, sceneLocation, then) {
 
       }
 
+
+      //loading spotify files
+      let fetchTracks = (albumId) => {
+        return axios.get('https://api.spotify.com/v1/albums/' + albumId)
+      }
+
+      let searchAlbumsAndPlaySong = (query) => {
+        axios.get('https://api.spotify.com/v1/search', {
+          params: {
+            q: query,
+            type: 'album'
+          }
+        })
+          .then(res => fetchTracks(res.data.albums.items[0].id))
+          .then(album => album.data.tracks.items)
+          .then(songs => new Audio(songs[0].preview_url))
+          .then(audio => audio.play())
+      }
+
       //play on enter music, test for now
+      
       searchAlbumsAndPlaySong('zappa')
 
 
@@ -192,6 +212,11 @@ window.addEventListener("resize", function () {
 });
 
 // Listen for Click
+
+let getComposer = (meshHit) => {
+  return axios.get('/' + meshHit)
+}
+
 window.addEventListener("click", function () {
   var pickResult = scene.pick(scene.pointerX, scene.pointerY)
   if (pickResult.distance > 3) {
@@ -201,7 +226,10 @@ window.addEventListener("click", function () {
   console.log('mesh name', meshHit)
 
   if (meshHit[0] === 'T' && !scene.GUI) {
-    createGUI(pickResult);
+    getComposer(meshHit)
+    .then((res) => createGUI(res.data));
+
+
     scene.GUI = true;
 
   } else if (document.body.dialog) {
@@ -210,13 +238,15 @@ window.addEventListener("click", function () {
   }
 })
 
-function createGUI(meshClicked) {
-  var options = { w: 300, h: 300, x: guisystem.getCanvasSize().width * 0.75, y: guisystem.getCanvasSize().height * 0.1 };
+function createGUI(composerData) {
+  let composerName = composerData.name;
+  let composerDescription = composerData.description;
+  var options = { w: 500, h: 600, x: guisystem.getCanvasSize().width * 0.68, y: guisystem.getCanvasSize().height * 0.1, textTitle: composerName, colorContent: 'white' };
   var dialog = new CASTORGUI.GUIWindow("dialog", options, guisystem);
   dialog.setVisible(true);
-  var text = new CASTORGUI.GUIText("textDialog", { size: 15, text: "hello, world!" }, guisystem, false);
+  var text = new CASTORGUI.GUIText("textDialog", { size: 15, text: composerDescription }, guisystem, false);
   // var textfield = new CASTORGUI.GUITextfield("mytextfield ", { x: 20, y: 100, zIndex: 5, w:100, h:25, placeholder:"Your text here" }, guisystem);
-  // dialog.add(text);
+  dialog.add(text);
 }
 
 var mode = "";

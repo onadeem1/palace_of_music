@@ -1,8 +1,17 @@
 /******SCENE IS ON GLOBAL ******/
 
+
+// CastorGUI
+var css = "button {cursor:pointer;} #textDialog{margin:6px}";
+var options = { themeRoot: "./dist/", themeGUI: "default" };
+var guisystem = new CASTORGUI.GUIManager(canvas, css, options);
+var pickResult;
+var pickedCameraPosition;
+
 //import files
 import { searchAlbumsAndPlaySong } from './musicFunctions.js'
 import loadAmbientMusic from './ambientMusic.js'
+
 
 //select canvas
 let canvas = document.getElementById('renderCanvas');
@@ -56,7 +65,7 @@ var loadScene = function (name, incremental, sceneLocation, then) {
       canvas.style.opacity = 1;
       if (scene.activeCamera) {
         scene.activeCamera.attachControl(canvas);
-        scene.activeCamera.speed = 0.075
+        scene.activeCamera.speed = 0.1
 
         if (newScene.activeCamera.keysUp) {
           newScene.activeCamera.keysUp.push(87); // W
@@ -72,8 +81,30 @@ var loadScene = function (name, incremental, sceneLocation, then) {
       }, { loop: true, autoplay: true });
       loadAmbientMusic(scene, outdoorAmbience)
 
+
+      //loading spotify files
+      let fetchTracks = (albumId) => {
+        return axios.get('https://api.spotify.com/v1/albums/' + albumId)
+      }
+
+      let searchAlbumsAndPlaySong = (query) => {
+        axios.get('https://api.spotify.com/v1/search', {
+          params: {
+            q: query,
+            type: 'album'
+          }
+        })
+          .then(res => fetchTracks(res.data.albums.items[0].id))
+          .then(album => album.data.tracks.items)
+          .then(songs => new Audio(songs[0].preview_url))
+          .then(audio => audio.play())
+      }
+
+      // searchAlbumsAndPlaySong('zappa')
+
       let text1 = scene.getMeshByName('Text01')
       let text2 = scene.getMeshByName('Text02')
+
 
       text1.isVisible = false
       text2.isVisible = false
@@ -136,23 +167,33 @@ let getComposer = (meshHit) => {
 }
 
 window.addEventListener("click", function () {
-  var pickResult = scene.pick(scene.pointerX, scene.pointerY)
+  pickResult = scene.pick(scene.pointerX, scene.pointerY)
+  const meshHit = pickResult.pickedMesh.name;
   if (pickResult.distance > 3) {
     return
   }
-  const meshHit = pickResult.pickedMesh.name;
+
   if (meshHit[0] === 'T' && !scene.GUI) {
 
     getComposer(meshHit)
     .then((res) => createGUI(res.data));
     scene.GUI = true;
-
+    pickedCameraPosition = Object.assign({}, scene.cameras[0].position)
   } else if (document.body.dialog) {
-
     scene.GUI = false;
   }
 })
 
+window.addEventListener("keydown", function(event){
+  if( pickedCameraPosition && (event.keyCode === 87 || event.keyCode === 83 || event.keyCode === 65 || event.keyCode === 68)){
+    let currentCameraPosition = scene.cameras[0].position
+    let distanceAway = BABYLON.Vector3.Distance(pickedCameraPosition, currentCameraPosition)
+    if(distanceAway > 3){
+      document.body.removeChild(document.getElementById("dialog"))
+      scene.GUI = false
+    }
+  }
+})
 
 function createGUI(composerData) {
   let composerName = composerData.name;

@@ -11,7 +11,7 @@ let composerArray = [
 
   {
       name: "Handel",
-      description: "George Frideric Handel (1685-1759) was a German, and later British, baroque era composer who made great strides in the realm of opera and choral works. He is remembered not only for his musical creations but also as a dramatic genius. Over his lifespan, he composed more than forty operas, of which Messiah remains a frequently performed staple across the world.",
+      description: "George Frideric Handel (1685-1759) was </br> a German, and later British, baroque era composer who made great strides in the realm of opera and choral works. He is remembered not only for his musical creations but also as a dramatic genius. Over his lifespan, he composed more than forty operas, of which Messiah remains a frequently performed staple across the world.",
       timeperiod: "Baroque",
       meshName: "T9"
   },

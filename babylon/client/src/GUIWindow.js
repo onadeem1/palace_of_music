@@ -4,7 +4,7 @@
 
     CASTORGUI.GUIWindow = function (id, options, guimanager) {
 
-		CASTORGUI.GUIManager.call(this, guimanager.canvas, guimanager.options);		
+		CASTORGUI.GUIManager.call(this, guimanager.canvas, guimanager.options);
 
 		this.id = id;
 		this.html = document.body || document.getElementsByTagName('body')[0];
@@ -19,7 +19,7 @@
 		this.borderWindow = options.borderWindow || null;
 		this.borderTitle = options.borderTitle || null;
 		this.heightTitle = options.heightTitle || 30;
-		this.fontSize = options.titleFontSize || 12; 
+		this.fontSize = options.titleFontSize || 12;
 		this.radiusWindow = options.radiusWindow || 8;
 		this.colorTitle = options.colorTitle || "rgba(0, 0, 0, 0.4)";
 		this.imageTitle = options.imageTitle || null;
@@ -47,19 +47,19 @@
 		window.style.position = "absolute";
 		window.style.width = this.windowSize.width+"px";
 		window.style.height = this.windowSize.height+"px";
-		if(CASTORGUI.GUIManager.convertPixelToPercent == true) {			
+		if(CASTORGUI.GUIManager.convertPixelToPercent == true) {
 			window.style.top = this.convertPixelToPercentHeight(this.windowPosition.y + this.getCanvasOrigine().top)+"%";
 			window.style.left = this.convertPixelToPercentWidth(this.windowPosition.x + this.getCanvasOrigine().left)+"%";
 		} else {
 			window.style.top = (this.windowPosition.y + this.getCanvasOrigine().top)+signe;
-			window.style.left = (this.windowPosition.x + this.getCanvasOrigine().left)+signe;			
+			window.style.left = (this.windowPosition.x + this.getCanvasOrigine().left)+signe;
 		}
 		window.style.borderRadius = this.radiusWindow+"px";
 		window.id = this.id;
 		window.name = this.id;
 		window.className = "GUIWindow";
 		window.style.zIndex = this.zIndex || 0;
-		window.style.backgroundColor = this.colorWindow;		
+		window.style.backgroundColor = this.colorWindow;
 		window.style.backgroundImage = "url("+this.imageWindow+")";
 		window.style.border = this.borderWindow;
 		window.style.wordWrap = "break-word";
@@ -67,7 +67,7 @@
 
 		var titreWindow = document.createElement("div");
 		titreWindow.className  = "titleWindoWGUI";
-		titreWindow.style.width = this.windowSize.width+"px";		
+		titreWindow.style.width = this.windowSize.width+"px";
 		titreWindow.style.height = this.heightTitle+"px";
 		titreWindow.style.textAlign = this.textAlign;
 		titreWindow.style.fontSize = this.fontSize+"px";
@@ -91,7 +91,7 @@
 			close.innerHTML = "X";
 			close.id = this.id+"_button";
 			close.style.position = "absolute";
-			close.style.borderRadius = "12px";			
+			close.style.borderRadius = "12px";
 			close.style.left = this.windowSize.width - 12+"px";
 			close.style.marginTop = "-12px";
 			close.style.width = "24px";
@@ -100,12 +100,12 @@
 // 			close.onclick = function () { that.getElementById(that.id).style.display = "none"; that.windowVisible = false; };
 		        close.onclick = function () {
                           document.body.removeChild(that.getElementById(that.id));
-                          scene.GUI = false;
+                        //   test.GUI = false;
                         };
 		}
 
 		var contentWindow = document.createElement("div");
-		contentWindow.id = this.id+"_content";		
+		contentWindow.id = this.id+"_content";
 		contentWindow.style.width = this.windowSize.width+"px";
 		contentWindow.style.height = this.windowSize.height - 38 +"px";
 		contentWindow.style.overflow = this.overflow;

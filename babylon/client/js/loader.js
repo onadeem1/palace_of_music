@@ -4,6 +4,8 @@ var canvas = document.getElementById("renderCanvas");
 var css = "button {cursor:pointer;} #textDialog{margin:6px}";
 var options = { themeRoot: "./dist/", themeGUI: "default" };
 var guisystem = new CASTORGUI.GUIManager(canvas, css, options);
+var pickResult;
+var pickedCameraPosition;
 
 var sceneChecked;
 var sceneLocation = "../Scenes/";
@@ -72,7 +74,7 @@ var loadScene = function (name, incremental, sceneLocation, then) {
       canvas.style.opacity = 1;
       if (scene.activeCamera) {
         scene.activeCamera.attachControl(canvas);
-        scene.activeCamera.speed = 0.075
+        scene.activeCamera.speed = 0.1
 
         if (newScene.activeCamera.keysUp) {
           newScene.activeCamera.keysUp.push(87); // W
@@ -101,7 +103,7 @@ var loadScene = function (name, incremental, sceneLocation, then) {
           .then(audio => audio.play())
       }
 
-      searchAlbumsAndPlaySong('zappa')
+      // searchAlbumsAndPlaySong('zappa')
 
       //adjusting frames shown
       let frames = scene.getMeshByName("T33")
@@ -184,30 +186,38 @@ window.addEventListener("resize", function () {
 
 // Listen for Click
 window.addEventListener("click", function () {
-  var pickResult = scene.pick(scene.pointerX, scene.pointerY)
+  pickResult = scene.pick(scene.pointerX, scene.pointerY)
+  const meshHit = pickResult.pickedMesh.name;
   if (pickResult.distance > 3) {
     return
   }
-  const meshHit = pickResult.pickedMesh.name;
-  console.log('mesh name', meshHit)
-
   if (meshHit[0] === 'T' && !scene.GUI) {
     createGUI(pickResult);
     scene.GUI = true;
-
+    pickedCameraPosition = Object.assign({}, scene.cameras[0].position)
   } else if (document.body.dialog) {
-
     scene.GUI = false;
   }
 })
 
+window.addEventListener("keydown", function(event){
+  if( pickedCameraPosition && (event.keyCode === 87 || event.keyCode === 83 || event.keyCode === 65 || event.keyCode === 68)){
+    let currentCameraPosition = scene.cameras[0].position
+    let distanceAway = BABYLON.Vector3.Distance(pickedCameraPosition, currentCameraPosition)
+    if(distanceAway > 3){
+      document.body.removeChild(document.getElementById("dialog"))
+      scene.GUI = false
+    }
+  }
+})
+
+
+
 function createGUI(meshClicked) {
-  var options = { w: 300, h: 300, x: guisystem.getCanvasSize().width * 0.75, y: guisystem.getCanvasSize().height * 0.1 };
+  var options = { w: 450, h: 300, x: guisystem.getCanvasSize().width * 0.35, y: guisystem.getCanvasSize().height * 0.25, backgroundColor: "#99ccff",  };
   var dialog = new CASTORGUI.GUIWindow("dialog", options, guisystem);
   dialog.setVisible(true);
   var text = new CASTORGUI.GUIText("textDialog", { size: 15, text: "hello, world!" }, guisystem, false);
-  // var textfield = new CASTORGUI.GUITextfield("mytextfield ", { x: 20, y: 100, zIndex: 5, w:100, h:25, placeholder:"Your text here" }, guisystem);
-  // dialog.add(text);
 }
 
 var mode = "";

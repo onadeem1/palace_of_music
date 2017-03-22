@@ -30,7 +30,7 @@ input.GUIColor
 	-moz-border-radius:8px;
     -webkit-border-radius:8px;
     border-radius:8px;
-	font-family: Segoe UI;
+	font-family: 'Italianno', cursive;
 }
 .GUIWindow
 {
@@ -103,7 +103,7 @@ a img.GUITexture
     width: 200px;
     border: 1px solid #000000;
     overflow: hidden;
-    text-overflow: clip; 
+    text-overflow: clip;
 }
 .GUISpinner
 {

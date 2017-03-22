@@ -14,44 +14,45 @@ var scene;
 
 let musicFileArray = ['beet', 'beet2', 'brahms', 'brahms2', 'dvorak', 'dvorak2', 'shost', 'shost2', 'shubert']
 
-var loadAmbientMusic = function (currentScene) {
+
+var loadAmbientMusic = function (currentScene, outdoorAmbience) {
   if (!currentScene.ambientPlaying) {
     currentScene.ambientPlaying = true
     let newSong = chance.pickone(musicFileArray)
-    var particleSystem = new BABYLON.ParticleSystem("particles", 2000, currentScene);
-    particleSystem.particleTexture = new BABYLON.Texture("Scenes/Assets/flare.png", scene);
-    particleSystem.textureMask = new BABYLON.Color4(0.1, 0.8, 0.8, 1.0);
+    var particleSystem = new BABYLON.ParticleSystem("particles", 1000, currentScene);
+    particleSystem.particleTexture = new BABYLON.Texture("Scenes/Assets/flare.png", currentScene);
+
+    // particleSystem.textureMask = new BABYLON.Color4(0.1, 0.8, 0.8, 1.0);
     particleSystem.minSize = 0.1;
-    particleSystem.maxSize = 0.5;
+    particleSystem.maxSize = 0.3;
     particleSystem.minLifeTime = 0.3;
     particleSystem.maxLifeTime = 1.5;
-    particleSystem.emitRate = 100;
+    particleSystem.emitRate = 25;
     particleSystem.disposeOnStop = true;
 
     let ambientSong = new BABYLON.Sound("Music", "Assets/Music/" + newSong + ".wav", currentScene, function () {
-      let newX = chance.floating({ min: -13, max: 22 })
+      let newX = chance.floating({ min: -8, max: 15 })
       let newY = chance.floating({ min: 0.7, max: 10.7 })
-      let newZ = chance.floating({ min: -9.6, max: 17 })
-
-      ambientSong.setPosition(new BABYLON.Vector3(newX, newY, newZ))
+      let newZ = chance.floating({ min: -6, max: 12 })
+      console.log(newX, newY, newZ)
+      ambientSong.setPosition(new BABYLON.Vector3(newX, newY, newZ))      
       particleSystem.emitter = currentScene.getMeshByName("T1")
-
       let intervalTime = chance.integer({ min: 10000, max: 11000 })
       setTimeout(function () {
         ambientSong.play()
         particleSystem.start()
+        outdoorAmbience.setVolume(0.07)
       }, intervalTime)
-    }, { spatialSound: true })
-
+    }, { spatialSound: true , distanceModel: 'exponential', panningModel: 'equalpower'})
     ambientSong.onended = function () {
       particleSystem.dispose()
       let intervalTime = chance.integer({ min: 10000, max: 11000 })
       currentScene.ambientPlaying = false
-      setTimeout(function () { loadAmbientMusic(currentScene) }, intervalTime)
+      outdoorAmbience.setVolume(0.15)
+      setTimeout(function () { loadAmbientMusic(currentScene, outdoorAmbience) }, intervalTime)
     }
   }
 }
-
 
 var loadScene = function (name, incremental, sceneLocation, then) {
   sceneChecked = false;
@@ -67,7 +68,6 @@ var loadScene = function (name, incremental, sceneLocation, then) {
     var piano = loader.addMeshTask("piano", "", "Assets/Piano/", "rescaledpiano.obj");
 
     loader.load()
-
     scene.executeWhenReady(function () {
       canvas.style.opacity = 1;
       if (scene.activeCamera) {
@@ -82,49 +82,54 @@ var loadScene = function (name, incremental, sceneLocation, then) {
         }
 
       }
+      var outdoorAmbience = new BABYLON.Sound("outdoorAmbience", "Assets/outdoors.wav", scene, function(){
+        outdoorAmbience.setVolume(0.15)
+        outdoorAmbience.play()
+      }, { loop: true, autoplay: true });
+      loadAmbientMusic(scene, outdoorAmbience)
 
       //loading spotify files
-      let fetchTracks = (albumId) => {
-        return axios.get('https://api.spotify.com/v1/albums/' + albumId)
-      }
+      // let fetchTracks = (albumId) => {
+      //   return axios.get('https://api.spotify.com/v1/albums/' + albumId)
+      // }
 
-      let searchAlbumsAndPlaySong = (query) => {
-        axios.get('https://api.spotify.com/v1/search', {
-          params: {
-            q: query,
-            type: 'album'
-          }
-        })
-          .then(res => fetchTracks(res.data.albums.items[0].id))
-          .then(album => album.data.tracks.items)
-          .then(songs => new Audio(songs[0].preview_url))
-          .then(audio => audio.play())
-      }
+      // let searchAlbumsAndPlaySong = (query) => {
+      //   axios.get('https://api.spotify.com/v1/search', {
+      //     params: {
+      //       q: query,
+      //       type: 'album'
+      //     }
+      //   })
+      //     .then(res => fetchTracks(res.data.albums.items[0].id))
+      //     .then(album => album.data.tracks.items)
+      //     .then(songs => new Audio(songs[0].preview_url))
+      //     .then(audio => audio.play())
+      // }
 
-      searchAlbumsAndPlaySong('zappa')
+      // searchAlbumsAndPlaySong('bach')
 
-      //adjusting frames shown
-      let frames = scene.getMeshByName("T33")
-      frames.isVisible = false
+      // //adjusting frames shown
+      // let frames = scene.getMeshByName("T33")
+      // frames.isVisible = false
 
-      let T1 = scene.getMeshByName("T1")
-      let T2 = scene.getMeshByName("T2")
-      let T3 = scene.getMeshByName("T3")
+      // let T1 = scene.getMeshByName("T1")
+      // let T2 = scene.getMeshByName("T2")
+      // let T3 = scene.getMeshByName("T3")
 
-      T1.isVisible = false
-      T2.isVisible = false
-      T3.isVisible = false
+      // T1.isVisible = false
+      // T2.isVisible = false
+      // T3.isVisible = false
 
-      let T4 = scene.getMeshByName("T4")
-      let T5 = scene.getMeshByName("T5")
+      // let T4 = scene.getMeshByName("T4")
+      // let T5 = scene.getMeshByName("T5")
 
-      T4.isVisible = false
-      T5.isVisible = false
+      // T4.isVisible = false
+      // T5.isVisible = false
 
-      let T20 = scene.getMeshByName("T20")
-      T20.isVisible = false
-      let blackPlaques = scene.getMeshByName("Chassis table Corbu")
-      blackPlaques.isVisible = false
+      // let T20 = scene.getMeshByName("T20")
+      // T20.isVisible = false
+      // let blackPlaques = scene.getMeshByName("Chassis table Corbu")
+      // blackPlaques.isVisible = false
 
       let text1 = scene.getMeshByName("Text01")
       let text2 = scene.getMeshByName("Text02")
@@ -189,6 +194,7 @@ window.addEventListener("click", function () {
     return
   }
   const meshHit = pickResult.pickedMesh.name;
+  console.log(meshHit)
 
   if (meshHit[0] === 'T' && !scene.GUI) {
     createGUI(pickResult);

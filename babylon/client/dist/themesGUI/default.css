@@ -99,11 +99,21 @@ a img.GUITexture
 }
 .GUIText
 {
+<<<<<<< HEAD
     white-space: nowrap;
     width: 200px;
     border: 1px solid #000000;
     overflow: hidden;
     text-overflow: clip;
+=======
+    white-space: nowrap !important;
+    width: 50px;
+    /*border: 1px solid #000000;*/
+    overflow: auto;
+    text-overflow: clip;
+		word-wrap:break-word;
+
+>>>>>>> f89411e4b787516807d1e353949ef7c2b6c213b7
 }
 .GUISpinner
 {

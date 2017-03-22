@@ -107,9 +107,6 @@ var loadScene = function (name, incremental, sceneLocation, then) {
         }
       }
 
-      //play on enter music, test for now
-      searchAlbumsAndPlaySong('zappa')
-
       //adjusting frames shown
       let frames = scene.getMeshByName("T33")
       frames.isVisible = false
@@ -201,8 +198,7 @@ window.addEventListener("click", function () {
 
   if (meshHit[0] === 'T' && !scene.GUI) {
     getComposer(meshHit)
-    .then((res) => createGUI(res.data));
-
+    .then((res) => createGUI(res.data))
 
     scene.GUI = true;
 
@@ -214,6 +210,8 @@ window.addEventListener("click", function () {
 
 function createGUI(composerData) {
   let composerName = composerData.name;
+  console.log(composerName)
+  searchAlbumsAndPlaySong(composerName)
   let composerDescription = composerData.description;
   var options = { w: 500, h: 600, x: guisystem.getCanvasSize().width * 0.68, y: guisystem.getCanvasSize().height * 0.1, textTitle: composerName, colorContent: 'white' };
   var dialog = new CASTORGUI.GUIWindow("dialog", options, guisystem);

@@ -189,6 +189,7 @@ window.addEventListener("click", function () {
     return
   }
   const meshHit = pickResult.pickedMesh.name;
+  console.log('mesh name', meshHit)
 
   if (meshHit[0] === 'T' && !scene.GUI) {
     createGUI(pickResult);
@@ -245,4 +246,3 @@ loadScene(demo.scene, mode, sceneLocation, function () {
     }
   }
 });
-

@@ -1,24 +1,49 @@
-var canvas = document.getElementById("renderCanvas");
+/******SCENE IS ON GLOBAL ******/
+
+//import files
+import chance from 'chance'
+import { searchAlbumsAndPlaySong } from './musicFunctions.js'
+
+//select canvas
+let canvas = document.getElementById("renderCanvas");
 
 // CastorGUI
-var css = "button {cursor:pointer;} #textDialog{margin:6px}";
-var options = { themeRoot: "./dist/", themeGUI: "default" };
-var guisystem = new CASTORGUI.GUIManager(canvas, css, options);
+let css = "button {cursor:pointer;} #textDialog{margin:6px}";
+let options = { themeRoot: "./dist/", themeGUI: "default" };
+let guisystem = new CASTORGUI.GUIManager(canvas, css, options);
 
-var sceneChecked;
-var sceneLocation = "../Scenes/";
+let sceneChecked;
+let sceneLocation = "../Scenes/";
+
+//declare demo to load
+let demo = {
+    scene: "Espilit",
+    incremental: false,
+    binary: true,
+    doNotUseCDN: false,
+    collisions: true,
+    offline: false,
+    onload: function () {
+        scene.autoClear = true;
+        scene.createOrUpdateSelectionOctree();
+        scene.getMeshByName("Sol loin").useVertexColors = false;
+        scene.gravity.scaleInPlace(0.5);
+        scene.GUI = false;
+        scene.ambientPlaying = false
+        var postProcess = new BABYLON.RefractionPostProcess("Refraction", "/scenes/customs/refMap.jpg", new BABYLON.Color3(1.0, 1.0, 1.0), 0.5, 0.5, 1.0, scene.cameras[1]);
+    }
+};
 
 // Babylon
-var engine = new BABYLON.Engine(canvas, true);
-var scene;
+let engine = new BABYLON.Engine(canvas, true);
 
 let musicFileArray = ['beet', 'beet2', 'brahms', 'brahms2', 'dvorak', 'dvorak2', 'shost', 'shost2', 'shubert']
 
-var loadAmbientMusic = function (currentScene) {
+let loadAmbientMusic = function (currentScene) {
   if (!currentScene.ambientPlaying) {
     currentScene.ambientPlaying = true
     let newSong = chance.pickone(musicFileArray)
-    var particleSystem = new BABYLON.ParticleSystem("particles", 2000, currentScene);
+    let particleSystem = new BABYLON.ParticleSystem("particles", 2000, currentScene);
     particleSystem.particleTexture = new BABYLON.Texture("Scenes/Assets/flare.png", scene);
     particleSystem.textureMask = new BABYLON.Color4(0.1, 0.8, 0.8, 1.0);
     particleSystem.minSize = 0.1;
@@ -83,25 +108,9 @@ var loadScene = function (name, incremental, sceneLocation, then) {
 
       }
 
-      //loading spotify files
-      let fetchTracks = (albumId) => {
-        return axios.get('https://api.spotify.com/v1/albums/' + albumId)
-      }
-
-      let searchAlbumsAndPlaySong = (query) => {
-        axios.get('https://api.spotify.com/v1/search', {
-          params: {
-            q: query,
-            type: 'album'
-          }
-        })
-          .then(res => fetchTracks(res.data.albums.items[0].id))
-          .then(album => album.data.tracks.items)
-          .then(songs => new Audio(songs[0].preview_url))
-          .then(audio => audio.play())
-      }
-
+      //play on enter music, test for now
       searchAlbumsAndPlaySong('zappa')
+
 
       //adjusting frames shown
       let frames = scene.getMeshByName("T33")
@@ -210,7 +219,6 @@ function createGUI(meshClicked) {
 }
 
 var mode = "";
-
 if (demo.incremental) {
   mode = ".incremental";
 } else if (demo.binary) {

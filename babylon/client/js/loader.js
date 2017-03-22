@@ -2,7 +2,7 @@
 
 //import files
 import chance from 'chance'
-import { searchAlbumsAndPlaySong } from './musicFunctions.js'
+import { searchAlbumsAndPlaySong, getComposer } from './musicFunctions.js'
 
 //select canvas
 let canvas = document.getElementById("renderCanvas");
@@ -105,13 +105,6 @@ var loadScene = function (name, incremental, sceneLocation, then) {
           newScene.activeCamera.keysLeft.push(65); // A
           newScene.activeCamera.keysRight.push(68); // D
         }
-
-      }
-
-
-      //loading spotify files
-      let fetchTracks = (albumId) => {
-        return axios.get('https://api.spotify.com/v1/albums/' + albumId)
       }
 
       //play on enter music, test for now
@@ -197,10 +190,6 @@ window.addEventListener("resize", function () {
 });
 
 // Listen for Click
-
-let getComposer = (meshHit) => {
-  return axios.get('/' + meshHit)
-}
 
 window.addEventListener("click", function () {
   var pickResult = scene.pick(scene.pointerX, scene.pointerY)

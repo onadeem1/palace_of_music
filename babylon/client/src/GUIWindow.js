@@ -100,7 +100,7 @@
 // 			close.onclick = function () { that.getElementById(that.id).style.display = "none"; that.windowVisible = false; };
 		        close.onclick = function () {
                           document.body.removeChild(that.getElementById(that.id));
-                          scene.GUI = false;
+                        //   test.GUI = false;
                         };
 		}
 

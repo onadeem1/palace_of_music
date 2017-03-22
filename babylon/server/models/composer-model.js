@@ -11,6 +11,9 @@ const Composer = db.define('composer', {
     },
     timeperiod:{
         type: Sequelize.STRING
+    },
+    meshName:{
+      type: Sequelize.STRING
     }
 });
 

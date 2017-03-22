@@ -18,13 +18,11 @@ app.get('*', function (request, response){
   response.sendFile(path.resolve(__dirname, '..', 'client', 'index.html'))
 })
 
-db.sync()
 
 app.listen(3000, () => {
   console.log('listening on *:3000');
+  db.sync()
+  .then(function(){
+    console.log('database is synced!')
+  })
 })
-
-
-
-
-

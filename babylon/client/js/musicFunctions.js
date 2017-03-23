@@ -11,8 +11,9 @@ export const searchAlbumsAndPlaySong = (query) => {
       type: 'album'
     }
   })
-    .then(res   => fetchTracks(res.data.albums.items[Math.floor(Math.random() * res.data.albums.items.length)].id))
-    .then(album => album.data.tracks.items)
-    .then(songs => new Audio(songs[Math.floor(Math.random() * songs.length)].preview_url))
-    .then(audio => audio.play())
+  .then(res   => fetchTracks(res.data.albums.items[Math.floor(Math.random() * res.data.albums.items.length)].id))
+  .then(album => album.data.tracks.items)
+  .then(songs => new Audio(songs[Math.floor(Math.random() * songs.length)].preview_url))
+  .then(audio => audio.play())
+
 }

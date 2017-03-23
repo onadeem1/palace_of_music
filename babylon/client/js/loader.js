@@ -19,21 +19,21 @@ let sceneLocation = "../Scenes/";
 
 //declare demo to load
 let demo = {
-    scene: "Espilit",
-    incremental: false,
-    binary: true,
-    doNotUseCDN: false,
-    collisions: true,
-    offline: false,
-    onload: function () {
-        scene.autoClear = true;
-        scene.createOrUpdateSelectionOctree();
-        scene.getMeshByName("Sol loin").useVertexColors = false;
-        scene.gravity.scaleInPlace(0.5);
-        scene.GUI = false;
-        scene.ambientPlaying = false
-        var postProcess = new BABYLON.RefractionPostProcess("Refraction", "/scenes/customs/refMap.jpg", new BABYLON.Color3(1.0, 1.0, 1.0), 0.5, 0.5, 1.0, scene.cameras[1]);
-    }
+  scene: "Espilit",
+  incremental: false,
+  binary: true,
+  doNotUseCDN: false,
+  collisions: true,
+  offline: false,
+  onload: function () {
+    scene.autoClear = true;
+    scene.createOrUpdateSelectionOctree();
+    scene.getMeshByName("Sol loin").useVertexColors = false;
+    scene.gravity.scaleInPlace(0.5);
+    scene.GUI = false;
+    scene.ambientPlaying = false
+    var postProcess = new BABYLON.RefractionPostProcess("Refraction", "/scenes/customs/refMap.jpg", new BABYLON.Color3(1.0, 1.0, 1.0), 0.5, 0.5, 1.0, scene.cameras[1]);
+  }
 };
 
 // Babylon
@@ -69,11 +69,11 @@ var loadScene = function (name, incremental, sceneLocation, then) {
         }
       }
 
-     var outdoorAmbience = new BABYLON.Sound('outdoorAmbience', 'Assets/outdoors.wav', scene, function(){
-          outdoorAmbience.setVolume(0.15)
-          outdoorAmbience.play()
-        }, { loop: true, autoplay: true });
-        loadAmbientMusic(scene, outdoorAmbience)
+      var outdoorAmbience = new BABYLON.Sound('outdoorAmbience', 'Assets/outdoors.wav', scene, function () {
+        outdoorAmbience.setVolume(0.04)
+        outdoorAmbience.play()
+      }, { loop: true, autoplay: true });
+      loadAmbientMusic(scene, outdoorAmbience)
 
       //adjusting frames shown
       // let frames = scene.getMeshByName("T33")
@@ -102,6 +102,7 @@ var loadScene = function (name, incremental, sceneLocation, then) {
       let text2 = scene.getMeshByName("Text02")
       text1.isVisible = false
       text2.isVisible = false
+
 
       if (then) {
         then();
@@ -168,7 +169,7 @@ window.addEventListener("click", function () {
 
   if (meshHit[0] === 'T' && !scene.GUI) {
     getComposer(meshHit)
-    .then((res) => createGUI(res.data));
+      .then((res) => createGUI(res.data));
     scene.GUI = true;
     pickedCameraPosition = Object.assign({}, scene.cameras[0].position)
   } else if (document.body.dialog) {
@@ -176,7 +177,7 @@ window.addEventListener("click", function () {
   }
 })
 
-window.addEventListener("keydown", function(event){
+window.addEventListener("keydown", function (event) {
   let keyCodes = event.keyCode === 87 || event.keyCode === 83 || event.keyCode === 65 || event.keyCode === 68 ||
   event.keyCode === 37 || event.keyCode === 38 || event.keyCode === 39 || event.keyCode === 40;
   
@@ -202,6 +203,13 @@ function createGUI(composerData) {
   let text = new CASTORGUI.GUIText("textDialog", { size: 20, color:'white', police: 'Palatino Linotype',text: composerTime + composerBirthday + composerBirthCountry + composerDescription, centerHorizontal:true }, guisystem, false);
   // var textfield = new CASTORGUI.GUITextfield("mytextfield ", { x: 20, y: 100, zIndex: 5, w:100, h:25, placeholder:"Your text here" }, guisystem);
   dialog.add(text);
+  $("dialog").append('<div id="waveform"></div>')
+  var wavesurfer = WaveSurfer.create({
+    container: '#waveform',
+    waveColor: 'violet',
+    progressColor: 'purple'
+  });
+  wavesurfer.load('https://s3.amazonaws.com/capstone-music/Schubert1.mp3');
 }
 
 var mode = "";
@@ -239,3 +247,4 @@ loadScene(demo.scene, mode, sceneLocation, function () {
     }
   }
 });
+

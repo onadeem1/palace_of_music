@@ -89,7 +89,7 @@ let composerArray = [
       timeperiod: "Romantic",
       born: "December 16, 1770",
       birthCountry: "Germany",
-      meshName: "T33"
+      meshName: "T29"
   },
   {
       name: "Brahms",

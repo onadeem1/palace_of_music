@@ -1,7 +1,8 @@
 /******SCENE IS ON GLOBAL ******/
 
 //import files
-import { searchAlbumsAndPlaySong, getComposer } from './musicFunctions.js'
+import $ from 'jquery'
+import { searchAlbumsAndPlaySong, getComposer, createArtistSpotify } from './musicFunctions.js'
 import loadAmbientMusic from './ambientMusic.js'
 
 //select canvas
@@ -60,7 +61,7 @@ var loadScene = function (name, incremental, sceneLocation, then) {
       canvas.style.opacity = 1;
       if (scene.activeCamera) {
         scene.activeCamera.attachControl(canvas);
-        scene.activeCamera.speed = 0.1
+        scene.activeCamera.speed = 0.5
 
         if (newScene.activeCamera.keysUp) {
           newScene.activeCamera.keysUp.push(87); // W
@@ -70,34 +71,35 @@ var loadScene = function (name, incremental, sceneLocation, then) {
         }
       }
 
-     var outdoorAmbience = new BABYLON.Sound('outdoorAmbience', 'Assets/outdoors.wav', scene, function(){
-          outdoorAmbience.setVolume(0.15)
-          outdoorAmbience.play()
-        }, { loop: true, autoplay: true });
-        loadAmbientMusic(scene, outdoorAmbience)
+    //*******COMMENT THIS IN */
+    //  var outdoorAmbience = new BABYLON.Sound('outdoorAmbience', 'Assets/outdoors.wav', scene, function(){
+    //       outdoorAmbience.setVolume(0.15)
+    //       outdoorAmbience.play()
+    //     }, { loop: true, autoplay: true });
+    //     loadAmbientMusic(scene, outdoorAmbience)
 
       //adjusting frames shown
-      // let frames = scene.getMeshByName("T33")
-      // frames.isVisible = false
+        // let frames = scene.getMeshByName("T33")
+        // frames.isVisible = false
 
-      // let T1 = scene.getMeshByName("T1")
-      // let T2 = scene.getMeshByName("T2")
-      // let T3 = scene.getMeshByName("T3")
+        // let T1 = scene.getMeshByName("T1")
+        // let T2 = scene.getMeshByName("T2")
+        // let T3 = scene.getMeshByName("T3")
 
-      // T1.isVisible = false
-      // T2.isVisible = false
-      // T3.isVisible = false
+        // T1.isVisible = false
+        // T2.isVisible = false
+        // T3.isVisible = false
 
-      // let T4 = scene.getMeshByName("T4")
-      // let T5 = scene.getMeshByName("T5")
+        // let T4 = scene.getMeshByName("T4")
+        // let T5 = scene.getMeshByName("T5")
 
-      // T4.isVisible = false
-      // T5.isVisible = false
+        // T4.isVisible = false
+        // T5.isVisible = false
 
-      // let T20 = scene.getMeshByName("T20")
-      // T20.isVisible = false
-      // let blackPlaques = scene.getMeshByName("Chassis table Corbu")
-      // blackPlaques.isVisible = false
+        // let T20 = scene.getMeshByName("T20")
+        // T20.isVisible = false
+        // let blackPlaques = scene.getMeshByName("Chassis table Corbu")
+        // blackPlaques.isVisible = false
 
       let text1 = scene.getMeshByName("Text01")
       let text2 = scene.getMeshByName("Text02")
@@ -198,8 +200,14 @@ function createGUI(composerData) {
   let dialog = new CASTORGUI.GUIWindow("dialog", options, guisystem);
   dialog.setVisible(true);
   let text = new CASTORGUI.GUIText("textDialog", { size: 15, text: composerDescription }, guisystem, false);
-  // var textfield = new CASTORGUI.GUITextfield("mytextfield ", { x: 20, y: 100, zIndex: 5, w:100, h:25, placeholder:"Your text here" }, guisystem);
   dialog.add(text);
+
+  createArtistSpotify('beethoven')
+
+// $("#textDialog").append('<iframe src="https://embed.spotify.com/?uri=spotify:artist:2wOqMjp9TyABvtHdOSOTUS" width="490" height="300" frameborder="0" allowtransparency="true"></iframe>')
+
+// searchAlbumsAndPlaySong('Mozart')
+
 }
 
 var mode = "";

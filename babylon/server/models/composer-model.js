@@ -16,7 +16,5 @@ const Composer = db.define('composer', {
       type: Sequelize.STRING
     }
 });
-// Composer.beforeCreate(function(composer) {
-//
-// })
+
 module.exports = Composer;

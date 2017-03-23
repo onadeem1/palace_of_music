@@ -1,3 +1,6 @@
+import loadAmbientMusic from './ambientMusic.js'
+import { searchAlbumsAndPlaySong } from './musicFunctions.js'
+
 var canvas = document.getElementById("renderCanvas");
 
 // CastorGUI
@@ -8,50 +11,32 @@ var guisystem = new CASTORGUI.GUIManager(canvas, css, options);
 var sceneChecked;
 var sceneLocation = "../Scenes/";
 
+var pickedCameraPosition, pickResult;
+
+
 // Babylon
 var engine = new BABYLON.Engine(canvas, true);
 var scene;
 
 let musicFileArray = ['beet', 'beet2', 'brahms', 'brahms2', 'dvorak', 'dvorak2', 'shost', 'shost2', 'shubert']
 
-var loadAmbientMusic = function (currentScene) {
-  if (!currentScene.ambientPlaying) {
-    currentScene.ambientPlaying = true
-    let newSong = chance.pickone(musicFileArray)
-    var particleSystem = new BABYLON.ParticleSystem("particles", 2000, currentScene);
-    particleSystem.particleTexture = new BABYLON.Texture("Scenes/Assets/flare.png", scene);
-    particleSystem.textureMask = new BABYLON.Color4(0.1, 0.8, 0.8, 1.0);
-    particleSystem.minSize = 0.1;
-    particleSystem.maxSize = 0.5;
-    particleSystem.minLifeTime = 0.3;
-    particleSystem.maxLifeTime = 1.5;
-    particleSystem.emitRate = 100;
-    particleSystem.disposeOnStop = true;
-
-    let ambientSong = new BABYLON.Sound("Music", "Assets/Music/" + newSong + ".wav", currentScene, function () {
-      let newX = chance.floating({ min: -13, max: 22 })
-      let newY = chance.floating({ min: 0.7, max: 10.7 })
-      let newZ = chance.floating({ min: -9.6, max: 17 })
-
-      ambientSong.setPosition(new BABYLON.Vector3(newX, newY, newZ))
-      particleSystem.emitter = currentScene.getMeshByName("T1")
-
-      let intervalTime = chance.integer({ min: 10000, max: 11000 })
-      setTimeout(function () {
-        ambientSong.play()
-        particleSystem.start()
-      }, intervalTime)
-    }, { spatialSound: true })
-
-    ambientSong.onended = function () {
-      particleSystem.dispose()
-      let intervalTime = chance.integer({ min: 10000, max: 11000 })
-      currentScene.ambientPlaying = false
-      setTimeout(function () { loadAmbientMusic(currentScene) }, intervalTime)
+var demo = {
+    scene: "Espilit",
+    incremental: false,
+    binary: true,
+    doNotUseCDN: false,
+    collisions: true,
+    offline: false,
+    onload: function () {
+        scene.autoClear = true;
+        scene.createOrUpdateSelectionOctree();
+        scene.getMeshByName("Sol loin").useVertexColors = false;
+        scene.gravity.scaleInPlace(0.5);
+        scene.GUI = false;
+        scene.ambientPlaying = false
+        var postProcess = new BABYLON.RefractionPostProcess("Refraction", "/scenes/customs/refMap.jpg", new BABYLON.Color3(1.0, 1.0, 1.0), 0.5, 0.5, 1.0, scene.cameras[1]);
     }
-  }
-}
-
+};
 
 var loadScene = function (name, incremental, sceneLocation, then) {
   sceneChecked = false;
@@ -83,6 +68,13 @@ var loadScene = function (name, incremental, sceneLocation, then) {
 
       }
 
+      var outdoorAmbience = new BABYLON.Sound('outdoorAmbience', 'Assets/outdoors.wav', scene, function(){
+        outdoorAmbience.setVolume(0.15)
+        outdoorAmbience.play()
+      }, { loop: true, autoplay: true });
+
+      loadAmbientMusic(scene, outdoorAmbience);
+
       //loading spotify files
       let fetchTracks = (albumId) => {
         return axios.get('https://api.spotify.com/v1/albums/' + albumId)
@@ -98,10 +90,10 @@ var loadScene = function (name, incremental, sceneLocation, then) {
           .then(res => fetchTracks(res.data.albums.items[0].id))
           .then(album => album.data.tracks.items)
           .then(songs => new Audio(songs[0].preview_url))
-          // .then(audio => audio.play())
+          .then(audio => audio.play())
       }
 
-      searchAlbumsAndPlaySong('zappa')
+      // searchAlbumsAndPlaySong('zappa')
 
       //adjusting frames shown
       let frames = scene.getMeshByName("T33")
@@ -188,28 +180,6 @@ let getComposer = (meshHit) => {
   return axios.get('/' + meshHit)
 }
 
-// window.addEventListener("click", function () {
-//   let pickResult = scene.pick(scene.pointerX, scene.pointerY)
-//   if (pickResult.distance > 3) {
-//     return
-//   }
-//   const meshHit = pickResult.pickedMesh.name;
-//   console.log('mesh name', meshHit)
-//
-//   if (meshHit[0] === 'T' && !scene.GUI) {
-//     getComposer(meshHit)
-//     .then((res) => createGUI(res.data));
-//
-//
-//     scene.GUI = true;
-//
-//   } else if (document.body.dialog) {
-//
-//     scene.GUI = false;
-//   }
-// })
- //jimmy code
-var pickedCameraPosition, pickResult;
 window.addEventListener("click", function () {
   pickResult = scene.pick(scene.pointerX, scene.pointerY)
 
@@ -233,14 +203,14 @@ window.addEventListener("keydown", function(event){
   if( pickedCameraPosition && (event.keyCode === 87 || event.keyCode === 83 || event.keyCode === 65 || event.keyCode === 68)){
     let currentCameraPosition = scene.cameras[0].position
     let distanceAway = BABYLON.Vector3.Distance(pickedCameraPosition, currentCameraPosition)
-    if(distanceAway > 3){
+    if(distanceAway > 3 && scene.GUI === true){
       console.log('distance');
       document.body.removeChild(document.getElementById("dialog"))
       scene.GUI = false
     }
   }
 })
-//
+
 function createGUI(composerData) {
   let composerName = composerData.name;
   let composerDescription = composerData.description;

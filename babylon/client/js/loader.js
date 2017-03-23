@@ -45,24 +45,6 @@ var engine = new BABYLON.Engine(canvas, true);
 
 let musicFileArray = ['beet', 'beet2', 'brahms', 'brahms2', 'dvorak', 'dvorak2', 'shost', 'shost2', 'shubert']
 
-var demo = {
-    scene: "Espilit",
-    incremental: false,
-    binary: true,
-    doNotUseCDN: false,
-    collisions: true,
-    offline: false,
-    onload: function () {
-        scene.autoClear = true;
-        scene.createOrUpdateSelectionOctree();
-        scene.getMeshByName("Sol loin").useVertexColors = false;
-        scene.gravity.scaleInPlace(0.5);
-        scene.GUI = false;
-        scene.ambientPlaying = false
-        var postProcess = new BABYLON.RefractionPostProcess("Refraction", "/scenes/customs/refMap.jpg", new BABYLON.Color3(1.0, 1.0, 1.0), 0.5, 0.5, 1.0, scene.cameras[1]);
-    }
-};
-
 var loadScene = function (name, incremental, sceneLocation, then) {
   sceneChecked = false;
   BABYLON.SceneLoader.ForceFullSceneLoadingForIncremental = true;

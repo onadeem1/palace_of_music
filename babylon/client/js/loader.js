@@ -194,10 +194,13 @@ window.addEventListener("keydown", function (event) {
 function createGUI(composerData) {
   let composerName = composerData.name;
   let composerDescription = composerData.description;
+  let composerBirthday = composerData.born + '<br>';
+  let composerBirthCountry = composerData.birthCountry + '<br>';
+  let composerTime = composerData.timeperiod + '<br>';
   let options = { w: 500, h: 600, x: guisystem.getCanvasSize().width * 0.68, y: guisystem.getCanvasSize().height * 0.1, textTitle: composerName, colorContent: 'white' };
   let dialog = new CASTORGUI.GUIWindow("dialog", options, guisystem);
   dialog.setVisible(true);
-  let text = new CASTORGUI.GUIText("textDialog", { size: 15, text: composerDescription }, guisystem, false);
+  let text = new CASTORGUI.GUIText("textDialog", { size: 15, text: [composerTime, composerBirthday, composerBirthCountry, composerDescription], centerHorizontal:true }, guisystem, false);
   // var textfield = new CASTORGUI.GUITextfield("mytextfield ", { x: 20, y: 100, zIndex: 5, w:100, h:25, placeholder:"Your text here" }, guisystem);
   dialog.add(text);
 }

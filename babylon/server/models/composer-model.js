@@ -12,6 +12,12 @@ const Composer = db.define('composer', {
     timeperiod:{
         type: Sequelize.STRING
     },
+    born:{
+      type: Sequelize.STRING
+    },
+    birthCountry:{
+      type: Sequelize.STRING
+    },
     meshName:{
       type: Sequelize.STRING
     }

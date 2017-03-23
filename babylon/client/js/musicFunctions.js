@@ -16,3 +16,7 @@ export const searchAlbumsAndPlaySong = (query) => {
     .then(songs => new Audio(songs[Math.floor(Math.random() * songs.length)].preview_url))
     .then(audio => audio.play())
 }
+
+export const getComposer = (meshHit) => {
+  return axios.get('/' + meshHit)
+}

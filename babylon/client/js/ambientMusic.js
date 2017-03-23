@@ -11,7 +11,13 @@ let musicFileArray = {
     'T30': ['brahms', 'brahms2'],
     'T32': ['dvorak', 'dvorak2'],
     'T41': ['shost', 'shost2'],
-    'T35': ['shubert']
+    'T35': ['shubert'],
+    'T28': ['mozart'],
+    'T27': ['tchaik'],
+    'T31': ['chopin'],
+    'T6': ['pachelbel'],
+    'T11': ['haydn'],
+    'T42': ['saint-saens']
 }
 
 function getCoords(input){
@@ -23,9 +29,21 @@ function getCoords(input){
         case 'T32':
             return {x: -6, y: 1.5, z: -3.6}
         case 'T41':
-            return {x: 0.9, y: 4.6, z: 14.3}
+            return {x: 4.2, y: 4.6, z: 14.3}
         case 'T35':
             return {x: -6, y: 1.7, z: 1.1}
+        case 'T28':
+            return {x: 12.6, y: 1.4, z: -0.5}
+        case 'T27':
+            return {x: 8.5, y: 1.5, z: 0.7}
+        case 'T31':
+            return {x: -2.9, y: 1.1, z: -2.5}
+        case 'T6':
+            return {x: -6.6, y: 1.1, z: 11.9}
+        case 'T11':
+            return {x: 3.9, y: 1.3, z: 14.4}
+        case 'T42':
+            return {x: 1.2, y:4.3, z: 14.2}
     }
 }
 
@@ -74,28 +92,25 @@ export default function loadAmbientMusic (currentScene, outdoorAmbience) {
             myAnalyser.FFT_SIZE = 512;
             myAnalyser.SMOOTHING = 0.9;
     let ambientSong = new BABYLON.Sound("Music", "Assets/Music/" + songFromPoint + ".wav", currentScene, function () {
-        let intervalTime = chance.integer({ min: 10000, max: 11000 })
+        let intervalTime = chance.integer({ min:2000, max: 2500 })
         setTimeout(function () {
-
             ambientSong.attachToMesh(spawner)
             ambientSong.play()
             note1Particle.start()
             note2Particle.start()
             note1Particle.emitter = spawner
             note2Particle.emitter = spawner
-            outdoorAmbience.setVolume(0.02)
-
+            outdoorAmbience.setVolume(0.01)
             myAnalyser.drawDebugCanvas()
-
     }, intervalTime)
     }, { spatialSound: true , distanceModel: 'exponential', panningModel: 'equalpower'})
 
     ambientSong.onended = function () {
       note1Particle.dispose()
       note2Particle.dispose()
-      let intervalTime = chance.integer({ min: 10000, max: 11000 })
+      let intervalTime = chance.integer({ min: 2000, max: 2500 })
       currentScene.ambientPlaying = false
-      outdoorAmbience.setVolume(0.15)
+      outdoorAmbience.setVolume(0.01)
       myAnalyser.dispose()
       setTimeout(function () { loadAmbientMusic(currentScene, outdoorAmbience) }, intervalTime)
     }

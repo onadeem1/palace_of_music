@@ -30,16 +30,17 @@ input.GUIColor
 	-moz-border-radius:8px;
     -webkit-border-radius:8px;
     border-radius:8px;
-	font-family: Segoe UI;
+	font-family: 'Italianno', cursive;
 }
 .GUIWindow
 {
-	border: 2px solid white;
+	/*border: 2px solid white;*/
 }
 .titleWindoWGUI
 {
 	color:white;
 	padding-top:5px;
+	font-size: 15px;
 }
 .titleWindoWGUI
 {
@@ -97,15 +98,13 @@ a img.GUITexture
 	color:white;
 	font-weight: bold;
 }
-.GUIText
+#GUIText
 {
-    white-space: nowrap !important;
+/*     white-space: nowrap; */
     width: 50px;
-    /*border: 1px solid #000000;*/
     overflow: auto;
     text-overflow: clip;
-		word-wrap:break-word;
-
+		word-wrap: break-word;
 }
 .GUISpinner
 {
@@ -143,4 +142,18 @@ a img.GUITexture
     -webkit-border-radius:8px;
     border-radius:8px;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+}
+#dialog_content {
+	white-space: nowrap !important;
+	width: 50px;
+	/*border: 1px solid #000000;*/
+	overflow: auto;
+	text-overflow: clip;
+	word-wrap:break-word;
+}
+#textDialog {
+	display: block;
+	width: 500px;
+	word-wrap: break-word;
+	white-space: normal;
 }

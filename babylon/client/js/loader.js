@@ -194,20 +194,19 @@ window.addEventListener("keydown", function(event){
  })
 
 function createGUI(composerData) {
+  //store composer info
   let composerName = composerData.name;
   let composerDescription = composerData.description;
+
+  //creating dialog & text
   let options = { w: 500, h: 600, x: guisystem.getCanvasSize().width * 0.68, y: guisystem.getCanvasSize().height * 0.1, textTitle: composerName, colorContent: 'white' };
   let dialog = new CASTORGUI.GUIWindow("dialog", options, guisystem);
-  dialog.setVisible(true);
   let text = new CASTORGUI.GUIText("textDialog", { size: 15, text: composerDescription }, guisystem, false);
+  dialog.setVisible(true);
   dialog.add(text);
-  console.log('This composer is: ', composerName)
-  createArtistSpotify(composerName)
 
-// $("#textDialog").append('<iframe src="https://embed.spotify.com/?uri=spotify:artist:2wOqMjp9TyABvtHdOSOTUS" width="490" height="300" frameborder="0" allowtransparency="true"></iframe>')
-
-// searchAlbumsAndPlaySong('Mozart')
-
+  //add spotify, takes in name & id to append player to
+  createArtistSpotify(composerName, '#dialog_content')
 }
 
 var mode = "";

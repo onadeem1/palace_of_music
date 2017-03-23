@@ -76,7 +76,6 @@ export default function loadAmbientMusic (currentScene, outdoorAmbience) {
     let ambientSong = new BABYLON.Sound("Music", "Assets/Music/" + songFromPoint + ".wav", currentScene, function () {
         let intervalTime = chance.integer({ min: 10000, max: 11000 })
         setTimeout(function () {
-
             ambientSong.attachToMesh(spawner)
             ambientSong.play()
             note1Particle.start()
@@ -84,9 +83,7 @@ export default function loadAmbientMusic (currentScene, outdoorAmbience) {
             note1Particle.emitter = spawner
             note2Particle.emitter = spawner
             outdoorAmbience.setVolume(0.02)
-
             myAnalyser.drawDebugCanvas()
-
     }, intervalTime)
     }, { spatialSound: true , distanceModel: 'exponential', panningModel: 'equalpower'})
 

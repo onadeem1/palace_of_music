@@ -2,3 +2,6 @@
 # yarn lockfile v1
 
 
+chance@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/chance/-/chance-1.0.6.tgz#4734f62d02b738cdc2882d8b5d41f89af49e7bfd"

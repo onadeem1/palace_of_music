@@ -1,9 +1,3 @@
-
-import loadAmbientMusic from './ambientMusic.js'
-import { searchAlbumsAndPlaySong } from './musicFunctions.js'
-
-var canvas = document.getElementById("renderCanvas");
-
 /******SCENE IS ON GLOBAL ******/
 
 // CastorGUI

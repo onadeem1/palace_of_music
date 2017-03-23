@@ -1,7 +1,8 @@
 /******SCENE IS ON GLOBAL ******/
 
 //import files
-import { searchAlbumsAndPlaySong, getComposer } from './musicFunctions.js'
+import $ from 'jquery'
+import { searchAlbumsAndPlaySong, getComposer, createArtistSpotify } from './musicFunctions.js'
 import loadAmbientMusic from './ambientMusic.js'
 
 //select canvas
@@ -60,7 +61,7 @@ var loadScene = function (name, incremental, sceneLocation, then) {
       canvas.style.opacity = 1;
       if (scene.activeCamera) {
         scene.activeCamera.attachControl(canvas);
-        scene.activeCamera.speed = 0.1
+        scene.activeCamera.speed = 0.5
 
         if (newScene.activeCamera.keysUp) {
           newScene.activeCamera.keysUp.push(87); // W
@@ -73,8 +74,31 @@ var loadScene = function (name, incremental, sceneLocation, then) {
      var outdoorAmbience = new BABYLON.Sound('outdoorAmbience', 'Assets/outdoors.wav', scene, function(){
           outdoorAmbience.setVolume(0.04)
           outdoorAmbience.play()
-        }, {loop: true});
-      loadAmbientMusic(scene, outdoorAmbience)
+        }, { loop: true, autoplay: true });
+        loadAmbientMusic(scene, outdoorAmbience)
+
+      //adjusting frames shown
+        // let frames = scene.getMeshByName("T33")
+        // frames.isVisible = false
+
+        // let T1 = scene.getMeshByName("T1")
+        // let T2 = scene.getMeshByName("T2")
+        // let T3 = scene.getMeshByName("T3")
+
+        // T1.isVisible = false
+        // T2.isVisible = false
+        // T3.isVisible = false
+
+        // let T4 = scene.getMeshByName("T4")
+        // let T5 = scene.getMeshByName("T5")
+
+        // T4.isVisible = false
+        // T5.isVisible = false
+
+        // let T20 = scene.getMeshByName("T20")
+        // T20.isVisible = false
+        // let blackPlaques = scene.getMeshByName("Chassis table Corbu")
+        // blackPlaques.isVisible = false
 
       let text1 = scene.getMeshByName("Text01")
       let text2 = scene.getMeshByName("Text02")
@@ -170,6 +194,7 @@ window.addEventListener("keydown", function (event) {
  })
 
 function createGUI(composerData) {
+  //store composer info
   let composerName = composerData.name;
   let composerDescription = composerData.description;
   let composerBirthday = 'Birth Date: ' + composerData.born + '<br />';
@@ -180,14 +205,10 @@ function createGUI(composerData) {
   dialog.setVisible(true);
   let text = new CASTORGUI.GUIText("textDialog", { size: 20, color:'white', police: 'Palatino Linotype',text: composerTime + composerBirthday + composerBirthCountry + composerDescription, centerHorizontal:true }, guisystem, false);
   // var textfield = new CASTORGUI.GUITextfield("mytextfield ", { x: 20, y: 100, zIndex: 5, w:100, h:25, placeholder:"Your text here" }, guisystem);
-  dialog.add(text);
-  $("dialog").append('<div id="waveform"></div>')
-  var wavesurfer = WaveSurfer.create({
-    container: '#waveform',
-    waveColor: 'violet',
-    progressColor: 'purple'
-  });
-  wavesurfer.load('https://s3.amazonaws.com/capstone-music/Schubert1.mp3');
+  dialog.add(text);  
+  //add spotify, takes in name & id to append player to
+   createArtistSpotify(composerName, '#dialog_content')
+
 }
 
 var mode = "";

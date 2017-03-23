@@ -157,6 +157,8 @@ a img.GUITexture
 	overflow: auto;
 	text-overflow: clip;
 	word-wrap:break-word;
+	display: flex;
+  	flex-direction: column;
 	margin: 10px 0px 10px 0px;
 }
 #textDialog {

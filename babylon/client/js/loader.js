@@ -201,8 +201,8 @@ function createGUI(composerData) {
   dialog.setVisible(true);
   let text = new CASTORGUI.GUIText("textDialog", { size: 15, text: composerDescription }, guisystem, false);
   dialog.add(text);
-
-  createArtistSpotify('beethoven')
+  console.log('This composer is: ', composerName)
+  createArtistSpotify(composerName)
 
 // $("#textDialog").append('<iframe src="https://embed.spotify.com/?uri=spotify:artist:2wOqMjp9TyABvtHdOSOTUS" width="490" height="300" frameborder="0" allowtransparency="true"></iframe>')
 

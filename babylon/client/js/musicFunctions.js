@@ -43,7 +43,7 @@ export const appendSpotify = (id, uri) => {
   $(id).append(fullUrl)
 }
 
-export const createArtistSpotify = (name) => {
+export const createArtistSpotify = (name, id) => {
   return getArtistURI(name)
   .then(uri => {console.log('what is URI', uri); appendSpotify('#textDialog', uri)})
 }

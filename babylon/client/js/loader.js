@@ -38,7 +38,6 @@ let demo = {
 
 // Babylon
 let engine = new BABYLON.Engine(canvas, true);
-
 let musicFileArray = ['beet', 'beet2', 'brahms', 'brahms2', 'dvorak', 'dvorak2', 'shost', 'shost2', 'shubert']
 
 var loadScene = function (name, incremental, sceneLocation, then) {
@@ -180,11 +179,11 @@ window.addEventListener("click", function () {
 window.addEventListener("keydown", function(event){
   let keyCodes = event.keyCode === 87 || event.keyCode === 83 || event.keyCode === 65 || event.keyCode === 68 ||
   event.keyCode === 37 || event.keyCode === 38 || event.keyCode === 39 || event.keyCode === 40;
-
+  
    if (pickedCameraPosition && keyCodes){
      let currentCameraPosition = scene.cameras[0].position
      let distanceAway = BABYLON.Vector3.Distance(pickedCameraPosition, currentCameraPosition)
-     if (distanceAway > 3 && scene.GUI){
+     if (distanceAway > .5 && scene.GUI){
        document.body.removeChild(document.getElementById("dialog"))
        scene.GUI = false
      }
@@ -194,13 +193,13 @@ window.addEventListener("keydown", function(event){
 function createGUI(composerData) {
   let composerName = composerData.name;
   let composerDescription = composerData.description;
-  let composerBirthday = composerData.born + '<br>';
-  let composerBirthCountry = composerData.birthCountry + '<br>';
-  let composerTime = composerData.timeperiod + '<br>';
-  let options = { w: 500, h: 600, x: guisystem.getCanvasSize().width * 0.68, y: guisystem.getCanvasSize().height * 0.1, textTitle: composerName, colorContent: 'white' };
+  let composerBirthday = 'Birth Date: ' + composerData.born + '<br />';
+  let composerBirthCountry = 'Country of Birth: ' + composerData.birthCountry + '<br /><br />';
+  let composerTime = 'Period: ' + composerData.timeperiod + '<br />';
+  let options = { w: window.innerWidth * .5, h: window.innerHeight * .75, x: guisystem.getCanvasSize().width * 0.3, y: guisystem.getCanvasSize().height * 0.2, heightTitle:40, textTitle: composerName, titleFontSize: 22, colorContent: 'rgb(24, 24, 24)', backgroundColor: 'black' };
   let dialog = new CASTORGUI.GUIWindow("dialog", options, guisystem);
   dialog.setVisible(true);
-  let text = new CASTORGUI.GUIText("textDialog", { size: 15, text: [composerTime, composerBirthday, composerBirthCountry, composerDescription], centerHorizontal:true }, guisystem, false);
+  let text = new CASTORGUI.GUIText("textDialog", { size: 20, color:'white', police: 'Palatino Linotype',text: composerTime + composerBirthday + composerBirthCountry + composerDescription, centerHorizontal:true }, guisystem, false);
   // var textfield = new CASTORGUI.GUITextfield("mytextfield ", { x: 20, y: 100, zIndex: 5, w:100, h:25, placeholder:"Your text here" }, guisystem);
   dialog.add(text);
 }

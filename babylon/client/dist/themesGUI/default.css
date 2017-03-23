@@ -35,16 +35,24 @@ input.GUIColor
 .GUIWindow
 {
 	/*border: 2px solid white;*/
+	position:absolute;
+	left:50%;
+	top:50%;
+	margin: -110px 0 0 -150px;
 }
 .titleWindoWGUI
 {
 	color:white;
-	padding-top:5px;
-	font-size: 15px;
+
+	margin-top: 8px;
+	padding-top:8px;
+	-webkit-box-shadow:  0px 0px 0px 9999px rgba(0, 0, 0, 0.5);
+     box-shadow:  0px 0px 0px 9999px rgba(0, 0, 0, 0.5);
 }
 .titleWindoWGUI
 {
 	border-bottom: 1px solid black;
+	font-size: 22px;
 }
 .GUIButton
 {
@@ -144,18 +152,36 @@ a img.GUITexture
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
 }
 #dialog_content {
-	white-space: nowrap !important;
+	/*white-space: nowrap !important;*/
 	width: 50px;
-	/*border: 1px solid #000000;*/
 	overflow: auto;
 	text-overflow: clip;
 	word-wrap:break-word;
 	display: flex;
   	flex-direction: column;
+	margin: 10px 0px 10px 0px;
 }
 #textDialog {
+	font-size: 18px !important;
+	font-family: "Helvetica" !important;
 	display: block;
 	width: 500px;
 	word-wrap: break-word;
 	white-space: normal;
+	margin-left: 20px !important;
+	margin-top: 20px !important;
+	margin-right: 20px !important;
+	line-height: 30px !important;
+}
+#dialog_titre {
+	font-size: 25px !important;
+	font-family: "Garamond";
+	letter-spacing: 2px;
+}
+
+
+#dialog_titre
+{
+	font-size: 20px;
+	font-family: ‘Palatino Linotype’, ‘Book Antiqua’, Palatino, serif;
 }

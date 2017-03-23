@@ -117,9 +117,9 @@
 	{
 		var contentDialog = this.getElementById(this.id);
 		contentDialog.style.zIndex = this.zIndex + 1;
-		if (!element.style){
-			element.style = contentDialog.style
-		}
+		// if (!element.style){
+		// 	element.style = contentDialog.style
+		// }
 		element.style.zIndex += 2;
 		element.addElement(false, contentDialog);
 	};

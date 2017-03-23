@@ -62,6 +62,17 @@
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
 /******/
+/******/ 	// webpack-livereload-plugin
+/******/ 	(function() {
+/******/ 	  if (typeof window === "undefined") { return };
+/******/ 	  var id = "webpack-livereload-plugin-script";
+/******/ 	  if (document.getElementById(id)) { return; }
+/******/ 	  var el = document.createElement("script");
+/******/ 	  el.id = id;
+/******/ 	  el.async = true;
+/******/ 	  el.src = "http://localhost:35729/livereload.js";
+/******/ 	  document.getElementsByTagName("head")[0].appendChild(el);
+/******/ 	}());
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 28);
 /******/ })
@@ -943,9 +954,11 @@ var Chance = __webpack_require__(31);
 var chance = new Chance();
 
 var musicFileArray = {
+
     'T29': ['beet', 'beet2'],
     'T30': ['brahms', 'brahms2'],
     'T32': ['dvorak', 'dvorak2'],
+
     'T41': ['shost', 'shost2'],
     'T35': ['shubert']
 };
@@ -1926,34 +1939,35 @@ module.exports = function spread(callback) {
 "use strict";
 
 
+var _musicFunctions = __webpack_require__(9);
+
 var _ambientMusic = __webpack_require__(8);
 
 var _ambientMusic2 = _interopRequireDefault(_ambientMusic);
 
-var _musicFunctions = __webpack_require__(9);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var canvas = document.getElementById("renderCanvas");
+/******SCENE IS ON GLOBAL ******/
 
 // CastorGUI
 var css = "button {cursor:pointer;} #textDialog{margin:6px}";
 var options = { themeRoot: "./dist/", themeGUI: "default" };
 var guisystem = new CASTORGUI.GUIManager(canvas, css, options);
+var pickResult;
+var pickedCameraPosition;
+//import files
 
-var sceneChecked;
-var sceneLocation = "../Scenes/";
 
-var pickedCameraPosition, pickResult;
+//select canvas
+var canvas = document.getElementById('renderCanvas');
 
-// Babylon
-var engine = new BABYLON.Engine(canvas, true);
-var scene;
+var scene = void 0;
+var sceneChecked = void 0;
+var sceneLocation = '../Scenes/';
 
-var musicFileArray = ['beet', 'beet2', 'brahms', 'brahms2', 'dvorak', 'dvorak2', 'shost', 'shost2', 'shubert'];
-
+//declare demo to load
 var demo = {
-  scene: "Espilit",
+  scene: 'Espilit',
   incremental: false,
   binary: true,
   doNotUseCDN: false,
@@ -1962,52 +1976,21 @@ var demo = {
   onload: function onload() {
     scene.autoClear = true;
     scene.createOrUpdateSelectionOctree();
-    scene.getMeshByName("Sol loin").useVertexColors = false;
+    scene.getMeshByName('Sol loin').useVertexColors = false;
     scene.gravity.scaleInPlace(0.5);
     scene.GUI = false;
     scene.ambientPlaying = false;
-    var postProcess = new BABYLON.RefractionPostProcess("Refraction", "/scenes/customs/refMap.jpg", new BABYLON.Color3(1.0, 1.0, 1.0), 0.5, 0.5, 1.0, scene.cameras[1]);
+    var postProcess = new BABYLON.RefractionPostProcess('Refraction', '/scenes/customs/refMap.jpg', new BABYLON.Color3(1.0, 1.0, 1.0), 0.5, 0.5, 1.0, scene.cameras[1]);
   }
 };
 
-// var loadAmbientMusic = function (currentScene) {
-//   if (!currentScene.ambientPlaying) {
-//     currentScene.ambientPlaying = true
-//     let newSong = chance.pickone(musicFileArray)
-//     var particleSystem = new BABYLON.ParticleSystem("particles", 2000, currentScene);
-//     particleSystem.particleTexture = new BABYLON.Texture("Scenes/Assets/flare.png", scene);
-//     particleSystem.textureMask = new BABYLON.Color4(0.1, 0.8, 0.8, 1.0);
-//     particleSystem.minSize = 0.1;
-//     particleSystem.maxSize = 0.5;
-//     particleSystem.minLifeTime = 0.3;
-//     particleSystem.maxLifeTime = 1.5;
-//     particleSystem.emitRate = 100;
-//     particleSystem.disposeOnStop = true;
-//
-//     let ambientSong = new BABYLON.Sound("Music", "Assets/Music/" + newSong + ".wav", currentScene, function () {
-//       let newX = chance.floating({ min: -13, max: 22 })
-//       let newY = chance.floating({ min: 0.7, max: 10.7 })
-//       let newZ = chance.floating({ min: -9.6, max: 17 })
-//
-//       ambientSong.setPosition(new BABYLON.Vector3(newX, newY, newZ))
-//       particleSystem.emitter = currentScene.getMeshByName("T1")
-//
-//       let intervalTime = chance.integer({ min: 10000, max: 11000 })
-//       setTimeout(function () {
-//         ambientSong.play()
-//         particleSystem.start()
-//       }, intervalTime)
-//     }, { spatialSound: true })
-//
-//     ambientSong.onended = function () {
-//       particleSystem.dispose()
-//       let intervalTime = chance.integer({ min: 10000, max: 11000 })
-//       currentScene.ambientPlaying = false
-//       setTimeout(function () { loadAmbientMusic(currentScene) }, intervalTime)
-//     }
-//   }
-// }
+var pickedCameraPosition, pickResult;
 
+// Babylon
+
+var engine = new BABYLON.Engine(canvas, true);
+
+var musicFileArray = ['beet', 'beet2', 'brahms', 'brahms2', 'dvorak', 'dvorak2', 'shost', 'shost2', 'shubert'];
 
 var loadScene = function loadScene(name, incremental, sceneLocation, then) {
   sceneChecked = false;
@@ -2016,19 +1999,17 @@ var loadScene = function loadScene(name, incremental, sceneLocation, then) {
   engine.resize();
 
   var dlCount = 0;
-  BABYLON.SceneLoader.Load(sceneLocation + name + "/", name + incremental + ".babylon", engine, function (newScene) {
+  BABYLON.SceneLoader.Load(sceneLocation + name + '/', name + incremental + '.babylon', engine, function (newScene) {
 
     scene = newScene;
     var loader = new BABYLON.AssetsManager(scene);
-    var piano = loader.addMeshTask("piano", "", "Assets/Piano/", "rescaledpiano.obj");
-
+    var piano = loader.addMeshTask('piano', '', 'Assets/Piano/', 'rescaledpiano.obj');
     loader.load();
-
     scene.executeWhenReady(function () {
       canvas.style.opacity = 1;
       if (scene.activeCamera) {
         scene.activeCamera.attachControl(canvas);
-        scene.activeCamera.speed = 0.075;
+        scene.activeCamera.speed = 0.1;
 
         if (newScene.activeCamera.keysUp) {
           newScene.activeCamera.keysUp.push(87); // W
@@ -2037,6 +2018,11 @@ var loadScene = function loadScene(name, incremental, sceneLocation, then) {
           newScene.activeCamera.keysRight.push(68); // D
         }
       }
+      var outdoorAmbience = new BABYLON.Sound('outdoorAmbience', 'Assets/outdoors.wav', scene, function () {
+        outdoorAmbience.setVolume(0.15);
+        outdoorAmbience.play();
+      }, { loop: true, autoplay: true });
+      (0, _ambientMusic2.default)(scene, outdoorAmbience);
 
       var outdoorAmbience = new BABYLON.Sound('outdoorAmbience', 'Assets/outdoors.wav', scene, function () {
         outdoorAmbience.setVolume(0.15);
@@ -2077,23 +2063,9 @@ var loadScene = function loadScene(name, incremental, sceneLocation, then) {
       var T2 = scene.getMeshByName("T2");
       var T3 = scene.getMeshByName("T3");
 
-      T1.isVisible = false;
-      T2.isVisible = false;
-      T3.isVisible = false;
+      var text1 = scene.getMeshByName('Text01');
+      var text2 = scene.getMeshByName('Text02');
 
-      var T4 = scene.getMeshByName("T4");
-      var T5 = scene.getMeshByName("T5");
-
-      T4.isVisible = false;
-      T5.isVisible = false;
-
-      var T20 = scene.getMeshByName("T20");
-      T20.isVisible = false;
-      var blackPlaques = scene.getMeshByName("Chassis table Corbu");
-      blackPlaques.isVisible = false;
-
-      var text1 = scene.getMeshByName("Text01");
-      var text2 = scene.getMeshByName("Text02");
       text1.isVisible = false;
       text2.isVisible = false;
 
@@ -2104,11 +2076,11 @@ var loadScene = function loadScene(name, incremental, sceneLocation, then) {
   }, function (evt) {
 
     if (evt.lengthComputable) {
-      engine.loadingUIText = "Loading, please wait..." + (evt.loaded * 100 / evt.total).toFixed() + "%";
+      engine.loadingUIText = 'Loading, please wait...' + (evt.loaded * 100 / evt.total).toFixed() + '%';
     } else {
 
       dlCount = evt.loaded / (1024 * 1024);
-      engine.loadingUIText = "Loading, please wait..." + Math.floor(dlCount * 100.0) / 100.0 + " MB already loaded.";
+      engine.loadingUIText = 'Loading, please wait...' + Math.floor(dlCount * 100.0) / 100.0 + ' MB already loaded.';
     }
   });
 
@@ -2122,7 +2094,7 @@ var renderFunction = function renderFunction() {
   if (scene) {
     if (!sceneChecked) {
       var remaining = scene.getWaitingItemsCount();
-      engine.loadingUIText = "Streaming items..." + (remaining ? remaining + " remaining" : "");
+      engine.loadingUIText = 'Streaming items...' + (remaining ? remaining + ' remaining' : '');
     }
 
     scene.render();
@@ -2131,9 +2103,9 @@ var renderFunction = function renderFunction() {
     if (scene.useDelayedTextureLoading) {
       var waiting = scene.getWaitingItemsCount();
       if (waiting > 0) {
-        status.innerHTML = "Streaming items..." + waiting + " remaining";
+        status.innerHTML = 'Streaming items...' + waiting + ' remaining';
       } else {
-        status.innerHTML = "";
+        status.innerHTML = '';
       }
     }
   }
@@ -2143,46 +2115,20 @@ var renderFunction = function renderFunction() {
 engine.runRenderLoop(renderFunction);
 
 // Resize
-window.addEventListener("resize", function () {
+window.addEventListener('resize', function () {
   engine.resize();
 });
 
 // Listen for Click
-
-var getComposer = function getComposer(meshHit) {
-  return axios.get('/' + meshHit);
-};
-
-// window.addEventListener("click", function () {
-//   let pickResult = scene.pick(scene.pointerX, scene.pointerY)
-//   if (pickResult.distance > 3) {
-//     return
-//   }
-//   const meshHit = pickResult.pickedMesh.name;
-//   console.log('mesh name', meshHit)
-//
-//   if (meshHit[0] === 'T' && !scene.GUI) {
-//     getComposer(meshHit)
-//     .then((res) => createGUI(res.data));
-//
-//
-//     scene.GUI = true;
-//
-//   } else if (document.body.dialog) {
-//
-//     scene.GUI = false;
-//   }
-// })
-//jimmy code
 window.addEventListener("click", function () {
   pickResult = scene.pick(scene.pointerX, scene.pointerY);
-
   var meshHit = pickResult.pickedMesh.name;
   if (pickResult.distance > 3) {
     return;
   }
 
   if (meshHit[0] === 'T' && !scene.GUI) {
+
     getComposer(meshHit).then(function (res) {
       return createGUI(res.data);
     });
@@ -2194,18 +2140,17 @@ window.addEventListener("click", function () {
 });
 
 window.addEventListener("keydown", function (event) {
-  console.log('keydown');
   if (pickedCameraPosition && (event.keyCode === 87 || event.keyCode === 83 || event.keyCode === 65 || event.keyCode === 68)) {
     var currentCameraPosition = scene.cameras[0].position;
     var distanceAway = BABYLON.Vector3.Distance(pickedCameraPosition, currentCameraPosition);
+
     if (distanceAway > 3 && scene.GUI === true) {
-      console.log('distance');
       document.body.removeChild(document.getElementById("dialog"));
       scene.GUI = false;
     }
   }
 });
-//
+
 function createGUI(composerData) {
   var composerName = composerData.name;
   var composerDescription = composerData.description;
@@ -2217,12 +2162,11 @@ function createGUI(composerData) {
   dialog.add(text);
 }
 
-var mode = "";
-
+var mode = '';
 if (demo.incremental) {
-  mode = ".incremental";
+  mode = '.incremental';
 } else if (demo.binary) {
-  mode = ".binary";
+  mode = '.binary';
 }
 
 if (demo.offline) {

@@ -173,11 +173,6 @@ window.addEventListener('resize', function () {
 });
 
 // Listen for Click
-
-let getComposer = (meshHit) => {
-  return axios.get('/' + meshHit)
-}
-
 window.addEventListener("click", function () {
   pickResult = scene.pick(scene.pointerX, scene.pointerY)
   const meshHit = pickResult.pickedMesh.name;
@@ -202,11 +197,6 @@ window.addEventListener("keydown", function(event){
     let distanceAway = BABYLON.Vector3.Distance(pickedCameraPosition, currentCameraPosition)
 
     if(distanceAway > 3 && scene.GUI === true){
-
-
-
-
-
       document.body.removeChild(document.getElementById("dialog"))
       scene.GUI = false
     }

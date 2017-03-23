@@ -42,7 +42,6 @@ var pickedCameraPosition, pickResult;
 // Babylon
 
 var engine = new BABYLON.Engine(canvas, true);
-var scene;
 
 let musicFileArray = ['beet', 'beet2', 'brahms', 'brahms2', 'dvorak', 'dvorak2', 'shost', 'shost2', 'shubert']
 

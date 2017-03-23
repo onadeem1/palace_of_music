@@ -150,6 +150,8 @@ a img.GUITexture
 	overflow: auto;
 	text-overflow: clip;
 	word-wrap:break-word;
+	display: flex;
+  	flex-direction: column;
 }
 #textDialog {
 	display: block;

@@ -15,4 +15,5 @@ export const searchAlbumsAndPlaySong = (query) => {
   .then(album => album.data.tracks.items)
   .then(songs => new Audio(songs[Math.floor(Math.random() * songs.length)].preview_url))
   .then(audio => audio.play())
+
 }

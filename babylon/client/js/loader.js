@@ -13,11 +13,6 @@ import loadAmbientMusic from './ambientMusic.js'
 //select canvas
 let canvas = document.getElementById('renderCanvas');
 
-// CastorGUI
-let css = 'button {cursor:pointer;} #textDialog{margin:6px}';
-let options = { themeRoot: './dist/', themeGUI: 'default' };
-let guisystem = new CASTORGUI.GUIManager(canvas, css, options);
-
 let scene;
 let sceneChecked;
 let sceneLocation = '../Scenes/';

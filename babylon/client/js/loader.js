@@ -71,12 +71,11 @@ var loadScene = function (name, incremental, sceneLocation, then) {
         }
       }
 
-    //*******COMMENT THIS IN */
-    //  var outdoorAmbience = new BABYLON.Sound('outdoorAmbience', 'Assets/outdoors.wav', scene, function(){
-    //       outdoorAmbience.setVolume(0.15)
-    //       outdoorAmbience.play()
-    //     }, { loop: true, autoplay: true });
-    //     loadAmbientMusic(scene, outdoorAmbience)
+     var outdoorAmbience = new BABYLON.Sound('outdoorAmbience', 'Assets/outdoors.wav', scene, function(){
+          outdoorAmbience.setVolume(0.15)
+          outdoorAmbience.play()
+        }, { loop: true, autoplay: true });
+        loadAmbientMusic(scene, outdoorAmbience)
 
       //adjusting frames shown
         // let frames = scene.getMeshByName("T33")

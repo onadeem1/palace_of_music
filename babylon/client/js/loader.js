@@ -28,7 +28,7 @@ let demo = {
     onload: function () {
         scene.autoClear = true;
         scene.createOrUpdateSelectionOctree();
-        scene.getMeshByName("Sol loin").useVertexColors = false;
+        // scene.getMeshByName("Sol loin").useVertexColors = false;
         scene.gravity.scaleInPlace(0.5);
         scene.GUI = false;
         scene.ambientPlaying = false
@@ -71,34 +71,10 @@ var loadScene = function (name, incremental, sceneLocation, then) {
       }
 
      var outdoorAmbience = new BABYLON.Sound('outdoorAmbience', 'Assets/outdoors.wav', scene, function(){
-          outdoorAmbience.setVolume(0.15)
+          outdoorAmbience.setVolume(0.10)
           outdoorAmbience.play()
-        }, { loop: true, autoplay: true });
-        loadAmbientMusic(scene, outdoorAmbience)
-
-      //adjusting frames shown
-      // let frames = scene.getMeshByName("T33")
-      // frames.isVisible = false
-
-      // let T1 = scene.getMeshByName("T1")
-      // let T2 = scene.getMeshByName("T2")
-      // let T3 = scene.getMeshByName("T3")
-
-      // T1.isVisible = false
-      // T2.isVisible = false
-      // T3.isVisible = false
-
-      // let T4 = scene.getMeshByName("T4")
-      // let T5 = scene.getMeshByName("T5")
-
-      // T4.isVisible = false
-      // T5.isVisible = false
-
-      // let T20 = scene.getMeshByName("T20")
-      // T20.isVisible = false
-      // let blackPlaques = scene.getMeshByName("Chassis table Corbu")
-      // blackPlaques.isVisible = false
-
+        }, {loop: true});
+      loadAmbientMusic(scene, outdoorAmbience)
       let text1 = scene.getMeshByName("Text01")
       let text2 = scene.getMeshByName("Text02")
       text1.isVisible = false
@@ -194,7 +170,7 @@ window.addEventListener("keydown", function(event){
 function createGUI(composerData) {
   let composerName = composerData.name;
   let composerDescription = composerData.description;
-  let options = { w: 500, h: 600, x: guisystem.getCanvasSize().width * 0.68, y: guisystem.getCanvasSize().height * 0.1, textTitle: composerName, colorContent: 'white' };
+  let options = { w: 500, h: 600, x: guisystem.getCanvasSize().width * 0.68, y: guisystem.getCanvasSize().height * 0.1, textTitle: composerName, colorContent: 'white', titleFontSize: '20px'};
   let dialog = new CASTORGUI.GUIWindow("dialog", options, guisystem);
   dialog.setVisible(true);
   let text = new CASTORGUI.GUIText("textDialog", { size: 15, text: composerDescription }, guisystem, false);

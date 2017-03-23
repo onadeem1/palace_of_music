@@ -43,6 +43,7 @@ input.GUIColor
 .titleWindoWGUI
 {
 	color:white;
+
 	margin-top: 8px;
 	padding-top:8px;
 	-webkit-box-shadow:  0px 0px 0px 9999px rgba(0, 0, 0, 0.5);
@@ -174,4 +175,11 @@ a img.GUITexture
 	font-size: 25px !important;
 	font-family: "Garamond";
 	letter-spacing: 2px;
+}
+
+
+#dialog_titre
+{
+	font-size: 20px;
+	font-family: ‘Palatino Linotype’, ‘Book Antiqua’, Palatino, serif;
 }

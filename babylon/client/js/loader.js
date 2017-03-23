@@ -19,6 +19,7 @@ let sceneLocation = "../Scenes/";
 
 //declare demo to load
 let demo = {
+
   scene: "Espilit",
   incremental: false,
   binary: true,
@@ -69,34 +70,11 @@ var loadScene = function (name, incremental, sceneLocation, then) {
         }
       }
 
-      var outdoorAmbience = new BABYLON.Sound('outdoorAmbience', 'Assets/outdoors.wav', scene, function () {
-        outdoorAmbience.setVolume(0.04)
-        outdoorAmbience.play()
-      }, { loop: true, autoplay: true });
+     var outdoorAmbience = new BABYLON.Sound('outdoorAmbience', 'Assets/outdoors.wav', scene, function(){
+          outdoorAmbience.setVolume(0.04)
+          outdoorAmbience.play()
+        }, {loop: true});
       loadAmbientMusic(scene, outdoorAmbience)
-
-      //adjusting frames shown
-      // let frames = scene.getMeshByName("T33")
-      // frames.isVisible = false
-
-      // let T1 = scene.getMeshByName("T1")
-      // let T2 = scene.getMeshByName("T2")
-      // let T3 = scene.getMeshByName("T3")
-
-      // T1.isVisible = false
-      // T2.isVisible = false
-      // T3.isVisible = false
-
-      // let T4 = scene.getMeshByName("T4")
-      // let T5 = scene.getMeshByName("T5")
-
-      // T4.isVisible = false
-      // T5.isVisible = false
-
-      // let T20 = scene.getMeshByName("T20")
-      // T20.isVisible = false
-      // let blackPlaques = scene.getMeshByName("Chassis table Corbu")
-      // blackPlaques.isVisible = false
 
       let text1 = scene.getMeshByName("Text01")
       let text2 = scene.getMeshByName("Text02")

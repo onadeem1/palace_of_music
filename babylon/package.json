@@ -9,12 +9,12 @@
     "build": "webpack",
     "build-dev": "npm run build -- --watch",
     "seed": "node server/seed.js"
-
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "amplitude": "^3.4.0",
     "axios": "^0.15.3",
     "babel": "^6.23.0",
     "babel-core": "^6.24.0",

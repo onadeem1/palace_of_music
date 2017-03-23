@@ -71,7 +71,7 @@ var loadScene = function (name, incremental, sceneLocation, then) {
       }
 
       var outdoorAmbience = new BABYLON.Sound('outdoorAmbience', 'Assets/outdoors.wav', scene, function () {
-        outdoorAmbience.setVolume(0.15)
+        outdoorAmbience.setVolume(0.04)
         outdoorAmbience.play()
       }, { loop: true, autoplay: true });
       loadAmbientMusic(scene, outdoorAmbience)
@@ -103,6 +103,7 @@ var loadScene = function (name, incremental, sceneLocation, then) {
       let text2 = scene.getMeshByName("Text02")
       text1.isVisible = false
       text2.isVisible = false
+
 
       if (then) {
         then();
@@ -203,6 +204,13 @@ function createGUI(composerData) {
   let text = new CASTORGUI.GUIText("textDialog", { size: 15, text: [composerTime, composerBirthday, composerBirthCountry, composerDescription], centerHorizontal:true }, guisystem, false);
   // var textfield = new CASTORGUI.GUITextfield("mytextfield ", { x: 20, y: 100, zIndex: 5, w:100, h:25, placeholder:"Your text here" }, guisystem);
   dialog.add(text);
+  $("dialog").append('<div id="waveform"></div>')
+  var wavesurfer = WaveSurfer.create({
+    container: '#waveform',
+    waveColor: 'violet',
+    progressColor: 'purple'
+  });
+  wavesurfer.load('https://s3.amazonaws.com/capstone-music/Schubert1.mp3');
 }
 
 var mode = "";
@@ -240,3 +248,4 @@ loadScene(demo.scene, mode, sceneLocation, function () {
     }
   }
 });
+

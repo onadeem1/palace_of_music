@@ -143,14 +143,13 @@ let composerArray = [
   }
 ]
 
-const composerPromiseArray = [];
 
-const seedComposers = composers => composers.forEach(composer=>{
-  composerPromiseArray.push(db.model('composer').create(composer))
+const seedComposers = (composers) => composers.map((composer) => {
+  return db.model('composer').create(composer)
 })
 
 db.sync({force:true})
 .then(()=>{
   return Promise.all(seedComposers(composerArray))
 })
-.catch(error => console.error.bind(console))
+.catch(error => console.error(error))

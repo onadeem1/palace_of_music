@@ -2135,7 +2135,6 @@ window.addEventListener("click", function () {
 
   if (meshHit[0] === 'T' && !scene.GUI) {
     getComposer(meshHit).then(function (res) {
-      console.log(res.data);
       createGUI(res.data);
     });
     scene.GUI = true;
@@ -2146,11 +2145,12 @@ window.addEventListener("click", function () {
 });
 
 window.addEventListener("keydown", function (event) {
-  console.log('keydown');
-  if (pickedCameraPosition && (event.keyCode === 87 || event.keyCode === 83 || event.keyCode === 65 || event.keyCode === 68)) {
+  var keyCodes = event.keyCode === 87 || event.keyCode === 83 || event.keyCode === 65 || event.keyCode === 68 || event.keyCode === 37 || event.keyCode === 38 || event.keyCode === 39 || event.keyCode === 40;
+
+  if (pickedCameraPosition && keyCodes) {
     var currentCameraPosition = scene.cameras[0].position;
     var distanceAway = BABYLON.Vector3.Distance(pickedCameraPosition, currentCameraPosition);
-    if (distanceAway > 3 && scene.GUI === true) {
+    if (distanceAway > 3 && scene.GUI) {
       console.log('distance');
       document.body.removeChild(document.getElementById("dialog"));
       scene.GUI = false;
@@ -2161,10 +2161,10 @@ window.addEventListener("keydown", function (event) {
 function createGUI(composerData) {
   var composerName = composerData.name;
   var composerDescription = composerData.description;
-  var options = { w: 400, h: 300, x: guisystem.getCanvasSize().width * 0.68, y: guisystem.getCanvasSize().height * 0.1, textTitle: composerName, colorContent: 'white', overflow: 'hidden' };
+  var options = { w: 400, h: 300, x: guisystem.getCanvasSize().width * 0.68, y: guisystem.getCanvasSize().height * 0.1, textTitle: composerName, colorContent: 'rgb(7, 2, 43)', overflow: 'hidden' };
   var dialog = new CASTORGUI.GUIWindow("dialog", options, guisystem);
   dialog.setVisible(true);
-  var text = new CASTORGUI.GUIText("textDialog", { size: 20, text: composerDescription }, guisystem, false);
+  var text = new CASTORGUI.GUIText("textDialog", { size: 20, text: composerDescription, color: 'white' }, guisystem, false);
   // var textfield = new CASTORGUI.GUITextfield("mytextfield ", { x: 20, y: 100, zIndex: 5, w:100, h:25, placeholder:"Your text here" }, guisystem);
   dialog.add(text);
 }

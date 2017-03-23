@@ -162,6 +162,28 @@ let getComposer = (meshHit) => {
   return axios.get('/' + meshHit)
 }
 
+// window.addEventListener("click", function () {
+//   let pickResult = scene.pick(scene.pointerX, scene.pointerY)
+//   if (pickResult.distance > 3) {
+//     return
+//   }
+//   const meshHit = pickResult.pickedMesh.name;
+//   console.log('mesh name', meshHit)
+//
+//   if (meshHit[0] === 'T' && !scene.GUI) {
+//     getComposer(meshHit)
+//     .then((res) => createGUI(res.data));
+//
+//
+//     scene.GUI = true;
+//
+//   } else if (document.body.dialog) {
+//
+//     scene.GUI = false;
+//   }
+// })
+ //jimmy code
+var pickedCameraPosition, pickResult;
 window.addEventListener("click", function () {
   pickResult = scene.pick(scene.pointerX, scene.pointerY)
   const meshHit = pickResult.pickedMesh.name;
@@ -180,25 +202,28 @@ window.addEventListener("click", function () {
   }
 })
 
-<<<<<<< HEAD
 window.addEventListener("keydown", function(event){
   if( pickedCameraPosition && (event.keyCode === 87 || event.keyCode === 83 || event.keyCode === 65 || event.keyCode === 68)){
     let currentCameraPosition = scene.cameras[0].position
     let distanceAway = BABYLON.Vector3.Distance(pickedCameraPosition, currentCameraPosition)
     if(distanceAway > 3){
+
       document.body.removeChild(document.getElementById("dialog"))
       scene.GUI = false
     }
   }
 })
+//
+
+
 
 function createGUI(composerData) {
   let composerName = composerData.name;
   let composerDescription = composerData.description;
-  var options = { w: 500, h: 600, x: guisystem.getCanvasSize().width * 0.68, y: guisystem.getCanvasSize().height * 0.1, textTitle: composerName, colorContent: 'white' };
-  var dialog = new CASTORGUI.GUIWindow("dialog", options, guisystem);
+  let options = { w: 400, h: 300, x: guisystem.getCanvasSize().width * 0.68, y: guisystem.getCanvasSize().height * 0.1, textTitle: composerName, colorContent: 'white', overflow: 'hidden' };
+  let dialog = new CASTORGUI.GUIWindow("dialog", options, guisystem);
   dialog.setVisible(true);
-  var text = new CASTORGUI.GUIText("textDialog", { size: 15, text: composerDescription }, guisystem, false);
+  let text = new CASTORGUI.GUIText("textDialog", { size: 20, text: composerDescription }, guisystem, false);
   // var textfield = new CASTORGUI.GUITextfield("mytextfield ", { x: 20, y: 100, zIndex: 5, w:100, h:25, placeholder:"Your text here" }, guisystem);
   dialog.add(text);
 

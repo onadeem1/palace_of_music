@@ -98,10 +98,10 @@
 			close.style.height = "24px";
 			close.style.zIndex = 10000;
 // 			close.onclick = function () { that.getElementById(that.id).style.display = "none"; that.windowVisible = false; };
-		        close.onclick = function () {
-                          document.body.removeChild(that.getElementById(that.id));
-                        //   test.GUI = false;
-                        };
+      close.onclick = function () {
+        document.body.removeChild(that.getElementById(that.id));
+        scene.GUI = false;
+      };
 		}
 
 		var contentWindow = document.createElement("div");

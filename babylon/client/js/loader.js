@@ -190,7 +190,9 @@ window.addEventListener("click", function () {
 
   if (meshHit[0] === 'T' && !scene.GUI) {
     getComposer(meshHit)
-    .then((res) => createGUI(res.data));
+    .then((res) => {
+      createGUI(res.data)
+    });
     scene.GUI = true;
     pickedCameraPosition = Object.assign({}, scene.cameras[0].position)
   } else if (document.body.dialog) {
@@ -212,14 +214,14 @@ window.addEventListener("keydown", function(event){
 })
 
 function createGUI(composerData) {
-  let composerName = composerData.name;
-  let composerDescription = composerData.description;
-  let options = { w: 400, h: 300, x: guisystem.getCanvasSize().width * 0.68, y: guisystem.getCanvasSize().height * 0.1, textTitle: composerName, colorContent: 'white', overflow: 'hidden' };
-  let dialog = new CASTORGUI.GUIWindow("dialog", options, guisystem);
-  dialog.setVisible(true);
-  let text = new CASTORGUI.GUIText("textDialog", { size: 20, text: composerDescription }, guisystem, false);
-  // var textfield = new CASTORGUI.GUITextfield("mytextfield ", { x: 20, y: 100, zIndex: 5, w:100, h:25, placeholder:"Your text here" }, guisystem);
-  dialog.add(text);
+    let composerName = composerData.name;
+    let composerDescription = composerData.description;
+    let options = { w: 400, h: 300, x: guisystem.getCanvasSize().width * 0.68, y: guisystem.getCanvasSize().height * 0.1, textTitle: composerName, colorContent: 'white', overflow: 'hidden' };
+    let dialog = new CASTORGUI.GUIWindow("dialog", options, guisystem);
+    dialog.setVisible(true);
+    let text = new CASTORGUI.GUIText("textDialog", { size: 20, text: composerDescription }, guisystem, false);
+    // var textfield = new CASTORGUI.GUITextfield("mytextfield ", { x: 20, y: 100, zIndex: 5, w:100, h:25, placeholder:"Your text here" }, guisystem);
+    dialog.add(text);
 }
 
 var mode = "";

@@ -62,6 +62,17 @@
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
 /******/
+/******/ 	// webpack-livereload-plugin
+/******/ 	(function() {
+/******/ 	  if (typeof window === "undefined") { return };
+/******/ 	  var id = "webpack-livereload-plugin-script";
+/******/ 	  if (document.getElementById(id)) { return; }
+/******/ 	  var el = document.createElement("script");
+/******/ 	  el.id = id;
+/******/ 	  el.async = true;
+/******/ 	  el.src = "http://localhost:35729/livereload.js";
+/******/ 	  document.getElementsByTagName("head")[0].appendChild(el);
+/******/ 	}());
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 28);
 /******/ })
@@ -1970,45 +1981,6 @@ var demo = {
   }
 };
 
-// var loadAmbientMusic = function (currentScene) {
-//   if (!currentScene.ambientPlaying) {
-//     currentScene.ambientPlaying = true
-//     let newSong = chance.pickone(musicFileArray)
-//     var particleSystem = new BABYLON.ParticleSystem("particles", 2000, currentScene);
-//     particleSystem.particleTexture = new BABYLON.Texture("Scenes/Assets/flare.png", scene);
-//     particleSystem.textureMask = new BABYLON.Color4(0.1, 0.8, 0.8, 1.0);
-//     particleSystem.minSize = 0.1;
-//     particleSystem.maxSize = 0.5;
-//     particleSystem.minLifeTime = 0.3;
-//     particleSystem.maxLifeTime = 1.5;
-//     particleSystem.emitRate = 100;
-//     particleSystem.disposeOnStop = true;
-//
-//     let ambientSong = new BABYLON.Sound("Music", "Assets/Music/" + newSong + ".wav", currentScene, function () {
-//       let newX = chance.floating({ min: -13, max: 22 })
-//       let newY = chance.floating({ min: 0.7, max: 10.7 })
-//       let newZ = chance.floating({ min: -9.6, max: 17 })
-//
-//       ambientSong.setPosition(new BABYLON.Vector3(newX, newY, newZ))
-//       particleSystem.emitter = currentScene.getMeshByName("T1")
-//
-//       let intervalTime = chance.integer({ min: 10000, max: 11000 })
-//       setTimeout(function () {
-//         ambientSong.play()
-//         particleSystem.start()
-//       }, intervalTime)
-//     }, { spatialSound: true })
-//
-//     ambientSong.onended = function () {
-//       particleSystem.dispose()
-//       let intervalTime = chance.integer({ min: 10000, max: 11000 })
-//       currentScene.ambientPlaying = false
-//       setTimeout(function () { loadAmbientMusic(currentScene) }, intervalTime)
-//     }
-//   }
-// }
-
-
 var loadScene = function loadScene(name, incremental, sceneLocation, then) {
   sceneChecked = false;
   BABYLON.SceneLoader.ForceFullSceneLoadingForIncremental = true;
@@ -2153,27 +2125,6 @@ var getComposer = function getComposer(meshHit) {
   return axios.get('/' + meshHit);
 };
 
-// window.addEventListener("click", function () {
-//   let pickResult = scene.pick(scene.pointerX, scene.pointerY)
-//   if (pickResult.distance > 3) {
-//     return
-//   }
-//   const meshHit = pickResult.pickedMesh.name;
-//   console.log('mesh name', meshHit)
-//
-//   if (meshHit[0] === 'T' && !scene.GUI) {
-//     getComposer(meshHit)
-//     .then((res) => createGUI(res.data));
-//
-//
-//     scene.GUI = true;
-//
-//   } else if (document.body.dialog) {
-//
-//     scene.GUI = false;
-//   }
-// })
-//jimmy code
 window.addEventListener("click", function () {
   pickResult = scene.pick(scene.pointerX, scene.pointerY);
 
@@ -2184,7 +2135,8 @@ window.addEventListener("click", function () {
 
   if (meshHit[0] === 'T' && !scene.GUI) {
     getComposer(meshHit).then(function (res) {
-      return createGUI(res.data);
+      console.log(res.data);
+      createGUI(res.data);
     });
     scene.GUI = true;
     pickedCameraPosition = Object.assign({}, scene.cameras[0].position);
@@ -2205,7 +2157,7 @@ window.addEventListener("keydown", function (event) {
     }
   }
 });
-//
+
 function createGUI(composerData) {
   var composerName = composerData.name;
   var composerDescription = composerData.description;

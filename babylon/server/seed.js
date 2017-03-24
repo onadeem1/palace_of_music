@@ -186,6 +186,27 @@ let composerArray = [
       born: "October 9, 1835",
       birthCountry: "France",
       meshName: "T42"
+  },{
+      name: "Varèse",
+      description: "Edgard Varèse's (1883 - 1965) music emphasizes timbre and rhythm and he coined the term 'organized sound' in reference to his own musical aesthetic. Varèse's conception of music reflected his vision of 'sound as living matter' and of 'musical space as open rather than bounded'. emphasis on timbre, rhythm, and new technologies inspired a generation of musicians who came of age during the 1960s and 1970s. One of Varèse's greatest fans was the American guitarist and composer Frank Zappa, who, upon hearing a copy of The Complete Works of Edgard Varèse, Vol. 1 became obsessed with the composer's music.",
+      timeperiod: "Contemporary",
+      born: "December 22, 1883",
+      birthCountry: "France",
+      meshName: "T43"
+  },{
+      name: "Stockhausen",
+      description: "Karlheinz Stockhausen (1928 - 2007) was a contemporary German composer widely regarded as the most important composers of the 20th and early 21st century. Described as 'one of the great visionaries of 20th-century music'. He is known for his groundbreaking work in electronic music, aleatory (controlled chance) in serial composition, and musical spatialization. His theoretical and other writings comprise ten large volumes. He received numerous prizes and distinctions for his compositions, recordings, and for the scores produced by his publishing company.",
+      timeperiod: "Contemporary",
+      born: "August 22, 1928",
+      birthCountry: "German",
+      meshName: "T45"
+  },{
+      name: "Xenakis",
+      description: "Iannis Xenakis (1922 - 2001) He is considered an important post-World War II composer whose works helped revolutionize 20th century classical music. Xenakis supported himself by composition and teaching, and quickly became recognized as one of the most important European composers of his time. He became especially known for his musical research in the field of computer-assisted composition, for which he founded the Equipe de Mathématique et Automatique Musicales. Xenakis wrote a collection of texts on applications of stochastic processes, game theory and computer programming in music.",
+      timeperiod: "Contemporary",
+      born: "August 22, 1928",
+      birthCountry: "Romania",
+      meshName: "T44"
   }
 ]
 

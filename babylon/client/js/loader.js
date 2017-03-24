@@ -4,6 +4,7 @@
 import $ from 'jquery'
 import { searchAlbumsAndPlaySong, getComposer, createArtistSpotify } from './musicFunctions.js'
 import loadAmbientMusic from './ambientMusic.js'
+import lightShow from './lightShow.js'
 
 //select canvas
 let canvas = document.getElementById("renderCanvas");
@@ -182,7 +183,7 @@ window.addEventListener("click", function () {
 window.addEventListener("keydown", function (event) {
   let keyCodes = event.keyCode === 87 || event.keyCode === 83 || event.keyCode === 65 || event.keyCode === 68 ||
   event.keyCode === 37 || event.keyCode === 38 || event.keyCode === 39 || event.keyCode === 40;
-  
+
    if (pickedCameraPosition && keyCodes){
      let currentCameraPosition = scene.cameras[0].position
      let distanceAway = BABYLON.Vector3.Distance(pickedCameraPosition, currentCameraPosition)

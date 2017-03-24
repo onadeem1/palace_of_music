@@ -12,8 +12,27 @@
 
 iframe {
     flex: 1;
-    margin-top: 250px
+    margin-top: 40vh;
+    width: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
+    width: 75vw !important;
+	height: 45% !important;
+    max-width: inherit !important
 }
+
+/*#extra {
+    display: initial !important;
+}*/
+
+@media screen and (max-height: 5px) {
+    .extra {
+        display: none
+    }
+}
+
+
+/*delete the overlay somewhere*/
 
 .warning {
     color: red;

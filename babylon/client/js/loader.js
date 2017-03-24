@@ -72,11 +72,11 @@ var loadScene = function (name, incremental, sceneLocation, then) {
         }
       }
 
-     var outdoorAmbience = new BABYLON.Sound('outdoorAmbience', 'Assets/outdoors.wav', scene, function(){
-          outdoorAmbience.setVolume(0.04)
-          outdoorAmbience.play()
-        }, { loop: true, autoplay: true });
-        loadAmbientMusic(scene, outdoorAmbience)
+    //  var outdoorAmbience = new BABYLON.Sound('outdoorAmbience', 'Assets/outdoors.wav', scene, function(){
+    //       outdoorAmbience.setVolume(0.04)
+    //       outdoorAmbience.play()
+    //     }, { loop: true, autoplay: true });
+    //     loadAmbientMusic(scene, outdoorAmbience)
 
       //adjusting frames shown
         // let frames = scene.getMeshByName("T33")
@@ -206,7 +206,7 @@ function createGUI(composerData) {
   dialog.setVisible(true);
   let text = new CASTORGUI.GUIText("textDialog", { size: 20, color:'white', police: 'Palatino Linotype',text: composerTime + composerBirthday + composerBirthCountry + composerDescription, centerHorizontal:true }, guisystem, false);
   // var textfield = new CASTORGUI.GUITextfield("mytextfield ", { x: 20, y: 100, zIndex: 5, w:100, h:25, placeholder:"Your text here" }, guisystem);
-  dialog.add(text);  
+  dialog.add(text);
   //add spotify, takes in name & id to append player to
    createArtistSpotify(composerName, '#dialog_content')
 

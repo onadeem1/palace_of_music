@@ -31,7 +31,18 @@ let musicFileArray = {
     'T42': ['saint-saens'],
     'T43': ['varese'],
     'T44': ['xenakis'],
-    'T45': ['stockhausen']
+    'T45': ['stockhausen'],
+    'T34': ['liszt'],
+    'T7': ['vivaldi'],
+    'T8': ['bach'],
+    'T9': ['handel'],
+    'T10': ['telemann'],
+    'T12':['salieri'],
+    'T36': ['prokofiev'],
+    'T37':['williams'],
+    'T38': ['stravinsky'],
+    'T39': ['sousa'],
+    'T40': ['ives']
 }
 
 function getCoords(input) {
@@ -57,6 +68,7 @@ function getCoords(input) {
         case 'T11':
             return {x: 3.9, y: 1.3, z: 14.4}
         case 'T42':
+
             return {x: 1.2, y: 4.3, z: 14.2}
         case 'T44':
             return {x: -2.6, y: 4.1, z: 14.4}
@@ -64,6 +76,30 @@ function getCoords(input) {
             return {x: -5.6, y: 4.1, z: 14.4}
         case 'T43':
             return {x: -1, y: 4.1, z: 14.4}
+        case 'T34':
+            return {x:-6.5, y: 1.8, z: -1.1}
+        case 'T7':
+            return {x:-5.5, y: 1.3, z: 14.2}
+        case 'T8':
+            return {x: -2.7, y:1.3, z: 14.2}
+        case 'T9':
+            return {x: -0.9, y: 1.3, z: 14.2}
+        case 'T10':
+            return {x: 1, y: 1.3, z: 14.2}
+        case 'T12':
+            return {x: 6.3, y: 1.3, z: 14.2}
+        case 'T13':
+            return {x: 8.7, y: 1.3, z: 14.2}
+        case 'T36': 
+            return {x: 12.7, y: 4.2, z: 8.9}
+        case 'T37':
+            return {x:12.7, y: 4.2, z: 11}
+        case 'T38':
+            return {x: 11.9, y: 4.2, z: 14.1}
+        case 'T39':
+            return {x: 9, y: 4.2, z: 14.1}
+        case 'T40':
+            return {x: 6.6, y: 4.2, z: 14.1}
     }
 }
 
@@ -149,5 +185,4 @@ export default function loadAmbientMusic(currentScene, outdoorAmbience, finale) 
             }
         }
     }
-
 }

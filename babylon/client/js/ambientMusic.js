@@ -10,10 +10,18 @@ var chance = new Chance();
 
 let musicFileArray = {
 
-    'T29': ['beet', 'beet2'],
-    'T30': ['brahms', 'brahms2'],
-    'T32': ['dvorak', 'dvorak2'],
-    'T41': ['shost', 'shost2'],
+    'T29': [
+        'beet', 'beet2'
+    ],
+    'T30': [
+        'brahms', 'brahms2'
+    ],
+    'T32': [
+        'dvorak', 'dvorak2'
+    ],
+    'T41': [
+        'shost', 'shost2'
+    ],
     'T35': ['shubert'],
     'T28': ['mozart'],
     'T27': ['tchaik'],
@@ -21,21 +29,20 @@ let musicFileArray = {
     'T6': ['pachelbel'],
     'T11': ['haydn'],
     'T42': ['saint-saens'],
+    'T43': ['varese'],
+    'T44': ['xenakis'],
+    'T45': ['stockhausen'],
     'T34': ['liszt'],
     'T7': ['vivaldi'],
     'T8': ['bach'],
     'T9': ['handel'],
     'T10': ['telemann'],
     'T12':['salieri'],
-    // 'T13':['hummel'],
-        'T36': ['prokofiev'],
-        'T37':['williams'],
-        'T38': ['stravinsky'],
-        'T39': ['sousa'],
-        'T40': ['ives']
-        
-
-
+    'T36': ['prokofiev'],
+    'T37':['williams'],
+    'T38': ['stravinsky'],
+    'T39': ['sousa'],
+    'T40': ['ives']
 }
 
 function getCoords(input) {
@@ -61,7 +68,14 @@ function getCoords(input) {
         case 'T11':
             return {x: 3.9, y: 1.3, z: 14.4}
         case 'T42':
-            return {x: 1.2, y:4.3, z: 14.2}
+
+            return {x: 1.2, y: 4.3, z: 14.2}
+        case 'T44':
+            return {x: -2.6, y: 4.1, z: 14.4}
+        case 'T45':
+            return {x: -5.6, y: 4.1, z: 14.4}
+        case 'T43':
+            return {x: -1, y: 4.1, z: 14.4}
         case 'T34':
             return {x:-6.5, y: 1.8, z: -1.1}
         case 'T7':
@@ -86,77 +100,89 @@ function getCoords(input) {
             return {x: 9, y: 4.2, z: 14.1}
         case 'T40':
             return {x: 6.6, y: 4.2, z: 14.1}
-
     }
 }
 
-export default function loadAmbientMusic(currentScene, outdoorAmbience, destroy) {
+export default function loadAmbientMusic(currentScene, outdoorAmbience, finale) {
 
+    if (finale) {
+        outdoorAmbience.setVolume(0)
+        lightShow(currentScene)
+        return
+    } else {
         if (!currentScene.ambientPlaying) {
-
             currentScene.ambientPlaying = true
             let newSpawnPoint = chance.pickone(Object.keys(musicFileArray))
             let songFromPoint = chance.pickone(musicFileArray[newSpawnPoint])
             let coordinates = getCoords(newSpawnPoint)
-
             var spawner = BABYLON
                 .Mesh
                 .CreateBox("fountain", 1.0, currentScene);
             spawner.position = new BABYLON.Vector3(coordinates.x, coordinates.y, coordinates.z)
             spawner.isVisible = false
 
-    var note1Particle = new BABYLON.ParticleSystem("particles1", 1000, currentScene);
-    note1Particle.particleTexture = new BABYLON.Texture("Scenes/Assets/note1.png", currentScene);
-    note1Particle.minSize = 0.1;
-    note1Particle.maxSize = 0.2;
-    note1Particle.minLifeTime = 0.3;
-    note1Particle.maxLifeTime = 2.5;
-    note1Particle.emitRate = 50;
-    note1Particle.color1 = new BABYLON.Color4(0, 1, 0, 1.0);
-    note1Particle.color2 = new BABYLON.Color4(0.678431, 1, 0.184314, 1.0);
-    note1Particle.colorDead = new BABYLON.Color4(0, 0, 0.2, 0.0);
-    note1Particle.direction1 = new BABYLON.Vector3(0, 0, 0);
-    note1Particle.direction2 = new BABYLON.Vector3(-3, 0.5, -1);
-    note1Particle.disposeOnStop = true;
-    
-    var note2Particle = new BABYLON.ParticleSystem("particles1", 1000, currentScene);
-    note2Particle.particleTexture = new BABYLON.Texture("Scenes/Assets/note2.png", currentScene);
-    note2Particle.minSize = 0.1;
-    note2Particle.maxSize = 0.2;
-    note2Particle.minLifeTime = 0.3;
-    note2Particle.maxLifeTime = 2.5;
-    note2Particle.emitRate = 50;
-    note2Particle.color1 = new BABYLON.Color4(0, 1, 0, 1.0);
-    note2Particle.color2 = new BABYLON.Color4(0.678431, 1, 0.184314, 1.0);
-    note2Particle.colorDead = new BABYLON.Color4(0, 0, 0.2, 0.0);
-    note2Particle.direction1 = new BABYLON.Vector3(0, 0, 0);
-    note2Particle.direction2 = new BABYLON.Vector3(-3, 0.5, -1);
-    note2Particle.disposeOnStop = true;
-    var myAnalyser = new BABYLON.Analyser(currentScene);
-            BABYLON.Engine.audioEngine.connectToAnalyser(myAnalyser);
-            myAnalyser.FFT_SIZE = 512;
-            myAnalyser.SMOOTHING = 0.9;
-    let ambientSong = new BABYLON.Sound("Music", "Assets/Music/" + songFromPoint + ".wav", currentScene, function () {
-        let intervalTime = chance.integer({ min:1000, max: 1500 })
-        setTimeout(function () {
-            ambientSong.attachToMesh(spawner)
-            ambientSong.play()
-            note1Particle.start()
-            note2Particle.start()
-            note1Particle.emitter = spawner
-            note2Particle.emitter = spawner
-            outdoorAmbience.setVolume(0.01)
-            myAnalyser.drawDebugCanvas()
-    }, intervalTime)
-    }, { spatialSound: true , distanceModel: 'exponential', panningModel: 'equalpower'})
+            var note1Particle = new BABYLON.ParticleSystem("particles1", 1000, currentScene);
+            note1Particle.particleTexture = new BABYLON.Texture("Scenes/Assets/note1.png", currentScene);
+            note1Particle.minSize = 0.1;
+            note1Particle.maxSize = 0.2;
+            note1Particle.minLifeTime = 0.3;
+            note1Particle.maxLifeTime = 2.5;
+            note1Particle.emitRate = 50;
+            note1Particle.color1 = new BABYLON.Color4(0, 1, 0, 1.0);
+            note1Particle.color2 = new BABYLON.Color4(0.678431, 1, 0.184314, 1.0);
+            note1Particle.colorDead = new BABYLON.Color4(0, 0, 0.2, 0.0);
+            note1Particle.direction1 = new BABYLON.Vector3(0, 0, 0);
+            note1Particle.direction2 = new BABYLON.Vector3(-3, 0.5, -1);
+            note1Particle.disposeOnStop = true;
+            var note2Particle = new BABYLON.ParticleSystem("particles1", 1000, currentScene);
+            note2Particle.particleTexture = new BABYLON.Texture("Scenes/Assets/note2.png", currentScene);
+            note2Particle.minSize = 0.1;
+            note2Particle.maxSize = 0.2;
+            note2Particle.minLifeTime = 0.3;
+            note2Particle.maxLifeTime = 2.5;
+            note2Particle.emitRate = 50;
+            note2Particle.color1 = new BABYLON.Color4(0, 1, 0, 1.0);
+            note2Particle.color2 = new BABYLON.Color4(0.678431, 1, 0.184314, 1.0);
+            note2Particle.colorDead = new BABYLON.Color4(0, 0, 0.2, 0.0);
+            note2Particle.direction1 = new BABYLON.Vector3(0, 0, 0);
+            note2Particle.direction2 = new BABYLON.Vector3(-3, 0.5, -1);
+            note2Particle.disposeOnStop = true;
+            let ambientSong = new BABYLON.Sound("Music", "Assets/Music/" + songFromPoint + ".wav", currentScene, function () {
+                let intervalTime = chance.integer({min: 2000, max: 2500})
+                setTimeout(function () {
+                    ambientSong.attachToMesh(spawner)
+                    ambientSong.play()
+                    note1Particle.start()
+                    note2Particle.start()
+                    note1Particle.emitter = spawner
+                    note2Particle.emitter = spawner
+                    outdoorAmbience.setVolume(0.01)
+                    // myAnalyser.drawDebugCanvas()
+                }, intervalTime)
+            }, {
+                spatialSound: true,
+                distanceModel: 'exponential',
+                panningModel: 'equalpower'
+            })
 
-    ambientSong.onended = function () {
-      note1Particle.dispose()
-      note2Particle.dispose()
-      let intervalTime = chance.integer({ min: 1000, max: 1500 })
-      currentScene.ambientPlaying = false
-      outdoorAmbience.setVolume(0.01)
-      setTimeout(function () { loadAmbientMusic(currentScene, outdoorAmbience) }, intervalTime)
-    }
+            ambientSong.onended = function () {
+                note1Particle.dispose()
+                note2Particle.dispose()
+                let intervalTime = chance.integer({min: 2000, max: 2500})
+                currentScene.ambientPlaying = false
+                outdoorAmbience.setVolume(0.01)
+                setTimeout(function () {
+                    let roll = chance.integer({min: 1, max: 20})
+                    console.log('roll for finale!', roll)
+                    // can never roll above a 21
+                    // need to fix the finalefunction
+                    if (roll >= 21) {
+                        loadAmbientMusic(currentScene, outdoorAmbience, true)
+                    } else {
+                        loadAmbientMusic(currentScene, outdoorAmbience)
+                    }
+                }, intervalTime)
+            }
+        }
     }
 }

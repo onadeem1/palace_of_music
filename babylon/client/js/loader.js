@@ -71,11 +71,11 @@ var loadScene = function (name, incremental, sceneLocation, then) {
         }
       }
 
-     var outdoorAmbience = new BABYLON.Sound('outdoorAmbience', 'Assets/outdoors.wav', scene, function(){
-          outdoorAmbience.setVolume(0.04)
-          outdoorAmbience.play()
-        }, { loop: true, autoplay: true });
-        loadAmbientMusic(scene, outdoorAmbience)
+    //  var outdoorAmbience = new BABYLON.Sound('outdoorAmbience', 'Assets/outdoors.wav', scene, function(){
+    //       outdoorAmbience.setVolume(0.04)
+    //       outdoorAmbience.play()
+    //     }, { loop: true, autoplay: true });
+    //     loadAmbientMusic(scene, outdoorAmbience)
 
       //adjusting frames shown
         // let frames = scene.getMeshByName("T33")
@@ -182,7 +182,7 @@ window.addEventListener("click", function () {
 window.addEventListener("keydown", function (event) {
   let keyCodes = event.keyCode === 87 || event.keyCode === 83 || event.keyCode === 65 || event.keyCode === 68 ||
   event.keyCode === 37 || event.keyCode === 38 || event.keyCode === 39 || event.keyCode === 40;
-  
+
    if (pickedCameraPosition && keyCodes){
      let currentCameraPosition = scene.cameras[0].position
      let distanceAway = BABYLON.Vector3.Distance(pickedCameraPosition, currentCameraPosition)
@@ -205,7 +205,7 @@ function createGUI(composerData) {
   dialog.setVisible(true);
   let text = new CASTORGUI.GUIText("textDialog", { size: 20, color:'white', police: 'Palatino Linotype',text: composerTime + composerBirthday + composerBirthCountry + composerDescription, centerHorizontal:true }, guisystem, false);
   // var textfield = new CASTORGUI.GUITextfield("mytextfield ", { x: 20, y: 100, zIndex: 5, w:100, h:25, placeholder:"Your text here" }, guisystem);
-  dialog.add(text);  
+  dialog.add(text);
   //add spotify, takes in name & id to append player to
    createArtistSpotify(composerName, '#dialog_content')
 

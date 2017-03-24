@@ -163,7 +163,7 @@ a img.GUITexture
 	text-overflow: clip;
 	word-wrap:break-word;
 	display: flex;
-  	flex-direction: column;
+  flex-direction: column;
 	margin: 10px 0px 10px 0px;
 	width: 75vw !important;
 	height: 75vh !important;

@@ -72,11 +72,11 @@ var loadScene = function (name, incremental, sceneLocation, then) {
         }
       }
 
-    //  var outdoorAmbience = new BABYLON.Sound('outdoorAmbience', 'Assets/outdoors.wav', scene, function(){
-    //       outdoorAmbience.setVolume(0.04)
-    //       outdoorAmbience.play()
-    //     }, { loop: true, autoplay: true });
-    //     loadAmbientMusic(scene, outdoorAmbience)
+     var outdoorAmbience = new BABYLON.Sound('outdoorAmbience', 'Assets/outdoors.wav', scene, function(){
+          outdoorAmbience.setVolume(0.04)
+          outdoorAmbience.play()
+        }, { loop: true, autoplay: true });
+        loadAmbientMusic(scene, outdoorAmbience)
 
       //adjusting frames shown
         // let frames = scene.getMeshByName("T33")
@@ -167,8 +167,6 @@ window.addEventListener("click", function () {
   if (pickResult.distance > 3) {
     return
   }
-
-  console.log('mesh name', meshHit)
 
   if (meshHit[0] === 'T' && !scene.GUI) {
     getComposer(meshHit)

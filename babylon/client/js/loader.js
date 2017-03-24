@@ -4,6 +4,7 @@
 import $ from 'jquery'
 import { searchAlbumsAndPlaySong, getComposer, createArtistSpotify } from './musicFunctions.js'
 import loadAmbientMusic from './ambientMusic.js'
+import lightShow from './lightShow.js'
 
 //select canvas
 let canvas = document.getElementById("renderCanvas");

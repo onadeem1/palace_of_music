@@ -161,15 +161,20 @@ a img.GUITexture
 	text-overflow: clip;
 	word-wrap:break-word;
 	display: flex;
-  	flex-direction: column;
+  flex-direction: column;
 	margin: 10px 0px 10px 0px;
 	width: 75vw !important;
 	height: 75vh !important;
 	max-width: inherit !important;
+	background-image: url('../../Assets/violinDark.jpg') !important;
+	background-position: center left;
+	background-size: cover;
+
 }
 #textDialog {
 	font-size: 16px !important;
-	font-family: "Helvetica" !important;
+	/*font-family: "Helvetica" !important;*/
+	font-family: 'Roboto Slab', serif !important;
 	display: block;
 	width: 500px;
 	word-wrap: break-word;
@@ -180,11 +185,18 @@ a img.GUITexture
 	line-height: 30px !important;
 	height: 50% !important;
 	overflow: scroll !important;
+
 }
 #dialog_titre {
-	font-size: 25px !important;
-	font-family: "Garamond";
+	font-size: 50px !important;
+	/*font-family: "Garamond";*/
+	font-family: 'Tangerine', cursive !important;
 	letter-spacing: 2px;
+	background-color: #4d1919 !important;
+	height: 50px !important;
+	margin-top: 0px !important;
+	box-shadow: 0px 10px 5px #616161;
+	position: relative !important
 }
 
 #dialog_button {

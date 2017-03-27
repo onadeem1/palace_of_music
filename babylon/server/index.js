@@ -6,6 +6,8 @@ const chalk = require('chalk')
 const db = require('./models')
 const Composer = require('./models/composer-model')
 
+module.exports = app
+
 /* initiate middleware */
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());

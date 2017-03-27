@@ -66,7 +66,7 @@ function getCoords(input) {
         case 'T27':
             return { x: 8.5, y: 1.5, z: 0.7 }
         case 'T31':
-            return { x: -2.9, y: 1.1, z: -2.5 }
+            return { x: -2.9, y: 1.2, z: -2.5 }
         case 'T6':
             return { x: -6.6, y: 1.1, z: 11.9 }
         case 'T11':

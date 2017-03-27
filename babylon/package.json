@@ -35,7 +35,6 @@
     "ramda": "^0.23.0",
     "sequelize": "^3.30.2",
     "supertest": "^3.0.0",
-    "supertest-as-promised": "^4.0.2",
     "webpack": "^2.3.0",
     "webpack-livereload-plugin": "^0.10.0"
   }

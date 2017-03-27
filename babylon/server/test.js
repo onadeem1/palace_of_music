@@ -1,6 +1,6 @@
 const Composer = require('./models/composer-model')
 const chai = require('chai')
-const expect = chai.expect 
+const expect = chai.expect
 const supertest = require('supertest')(require('./index'))
 
 describe('Composers model and Spotify song retrieval', function () {

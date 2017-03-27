@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
-import sampleReducer from './sample-reducer';
+import composersReducer from './composers-reducer';
 
 export default combineReducers({
-  sampleReducer: sampleReducer
+  composers: require('./composers-reducer').default,
 });

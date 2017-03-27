@@ -19,6 +19,7 @@ iframe {
 	height: 45% !important;
     max-width: inherit !important;
     overflow: scroll !important;
+    min-height: 280px !important
 }
 
 /*delete the overlay somewhere*/

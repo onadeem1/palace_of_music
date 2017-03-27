@@ -5,6 +5,8 @@ import $ from 'jquery'
 import { searchAlbumsAndPlaySong, getComposer, createArtistSpotify } from './musicFunctions.js'
 import loadAmbientMusic from './ambientMusic.js'
 import lightShow from './lightShow.js'
+import checkForPort from './checkForPort.js'
+
 
 //select canvas
 let canvas = document.getElementById("renderCanvas");
@@ -52,10 +54,6 @@ export const loadScene = function (name, incremental, sceneLocation, then) {
   BABYLON.SceneLoader.Load(sceneLocation + name + "/", name + incremental + ".babylon", engine, function (newScene) {
 
     scene = newScene;
-    var loader = new BABYLON.AssetsManager(scene);
-    var piano = loader.addMeshTask("piano", "", "Assets/Piano/", "rescaledpiano.obj");
-
-    loader.load()
     scene.executeWhenReady(function () {
       canvas.style.opacity = 1;
       if (scene.activeCamera) {
@@ -69,6 +67,7 @@ export const loadScene = function (name, incremental, sceneLocation, then) {
           newScene.activeCamera.keysRight.push(68); // D
         }
       }
+
 
       var outdoorAmbience = new BABYLON.Sound('outdoorAmbience', 'Assets/outdoors.wav', scene, function(){
         outdoorAmbience.setVolume(0.04)
@@ -156,10 +155,8 @@ window.addEventListener("resize", function () {
   engine.resize();
 });
 
-window.addEventListener("keydown", checkKeyPressed, false);
-//Lock pointer if Q is pressed
 
-const checkKeyPressed = e => {
+var checkKeyPressed = e => {
   switch(e.keyCode) {
     case 81:
     if (engine.isPointerLock == false){
@@ -172,24 +169,27 @@ const checkKeyPressed = e => {
   }
 }
 
+window.addEventListener("keydown", checkKeyPressed, false);
+//Lock pointer if Q is pressed
 
 // Listen for Click
-
-window.addEventListener("click", function () {
+window.addEventListener("click", function (evt) {
+  if(scene.GUI){
+    document.body.removeChild(document.getElementById("dialog"))
+    scene.GUI = false;
+    return
+  }
   pickResult = scene.pick(scene.pointerX, scene.pointerY)
   const meshHit = pickResult.pickedMesh.name;
-
   if (pickResult.distance > 3) {
     return
   }
-
-  if (meshHit[0] === 'T' && !scene.GUI) {
+  if (checkForPort(meshHit) && !scene.GUI) {
     getComposer(meshHit)
-    .then((res) => createGUI(res.data));
+      .then((res) => createGUI(res.data))
+      .catch(console.log('there was a fuck up'))
     scene.GUI = true;
     pickedCameraPosition = Object.assign({}, scene.cameras[0].position)
-  } else if (document.body.dialog) {
-    scene.GUI = false;
   }
 })
 
@@ -208,13 +208,17 @@ window.addEventListener("keydown", function (event) {
 })
 
 function createGUI(composerData) {
+  if(!composerData){
+    console.log('there was a fuck up')
+    return
+  }
   //store composer info
   let composerName = composerData.name;
   let composerDescription = composerData.description;
   let composerBirthday = 'Birth Date: ' + composerData.born + '<br />';
   let composerBirthCountry = 'Country of Birth: ' + composerData.birthCountry + '<br /><br />';
   let composerTime = 'Period: ' + composerData.timeperiod + '<br />';
-  let options = { w: window.innerWidth * .5, h: window.innerHeight * .75, x: guisystem.getCanvasSize().width * 0.3, y: guisystem.getCanvasSize().height * 0.2, heightTitle:40, textTitle: composerName, titleFontSize: 22, colorContent: 'rgb(24, 24, 24)', backgroundColor: 'black' };
+  let options = { w: window.innerWidth * .5, h: window.innerHeight * .75, x: guisystem.getCanvasSize().width * 0.3, y: guisystem.getCanvasSize().height * 0.2, heightTitle:40, textTitle: composerName, titleFontSize: 22, colorContent: 'rgb(24, 24, 24)', backgroundColor: 'black', closeButton: null };
   let dialog = new CASTORGUI.GUIWindow("dialog", options, guisystem);
   dialog.setVisible(true);
   let text = new CASTORGUI.GUIText("textDialog", { size: 20, color:'white', police: 'Palatino Linotype',text: composerTime + composerBirthday + composerBirthCountry + composerDescription, centerHorizontal:true }, guisystem, false);

@@ -68,7 +68,6 @@ function getCoords(input) {
         case 'T11':
             return {x: 3.9, y: 1.3, z: 14.4}
         case 'T42':
-
             return {x: 1.2, y: 4.3, z: 14.2}
         case 'T44':
             return {x: -2.6, y: 4.1, z: 14.4}

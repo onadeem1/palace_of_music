@@ -5,6 +5,8 @@ import $ from 'jquery'
 import { searchAlbumsAndPlaySong, getComposer, createArtistSpotify } from './musicFunctions.js'
 import loadAmbientMusic from './ambientMusic.js'
 import lightShow from './lightShow.js'
+import checkForPort from './checkForPort.js'
+
 
 //select canvas
 let canvas = document.getElementById("renderCanvas");
@@ -53,10 +55,10 @@ var loadScene = function (name, incremental, sceneLocation, then) {
   BABYLON.SceneLoader.Load(sceneLocation + name + "/", name + incremental + ".babylon", engine, function (newScene) {
 
     scene = newScene;
-    var loader = new BABYLON.AssetsManager(scene);
-    var piano = loader.addMeshTask("piano", "", "Assets/Piano/", "rescaledpiano.obj");
+    // var loader = new BABYLON.AssetsManager(scene);
+    // // var piano = loader.addMeshTask("piano", "", "Assets/Piano/", "rescaledpiano.obj");
 
-    loader.load()
+    // loader.load()
 
     scene.executeWhenReady(function () {
       canvas.style.opacity = 1;
@@ -72,11 +74,11 @@ var loadScene = function (name, incremental, sceneLocation, then) {
         }
       }
 
-    //  var outdoorAmbience = new BABYLON.Sound('outdoorAmbience', 'Assets/outdoors.wav', scene, function(){
-    //       outdoorAmbience.setVolume(0.04)
-    //       outdoorAmbience.play()
-    //     }, { loop: true, autoplay: true });
-    //     loadAmbientMusic(scene, outdoorAmbience)
+     var outdoorAmbience = new BABYLON.Sound('outdoorAmbience', 'Assets/outdoors.wav', scene, function(){
+          outdoorAmbience.setVolume(0.04)
+          outdoorAmbience.play()
+        }, { loop: true, autoplay: true });
+        loadAmbientMusic(scene, outdoorAmbience)
 
       //adjusting frames shown
         // let frames = scene.getMeshByName("T33")
@@ -158,25 +160,31 @@ window.addEventListener("resize", function () {
   engine.resize();
 });
 
-// Listen for Click
 
-window.addEventListener("click", function () {
+// Listen for Click
+window.addEventListener("click", function (evt) {
+  if(scene.GUI){
+    // console.log('GUI is up')
+    document.body.removeChild(document.getElementById("dialog"))
+    scene.GUI = false;
+  }
+  // console.log(evt)
+  // console.log('test')
   pickResult = scene.pick(scene.pointerX, scene.pointerY)
   const meshHit = pickResult.pickedMesh.name;
-
+  console.log(meshHit)
   if (pickResult.distance > 3) {
     return
   }
 
-  console.log('mesh name', meshHit)
+  // console.log('mesh name', meshHit)
 
-  if (meshHit[0] === 'T' && !scene.GUI) {
+  if (checkForPort(meshHit) && !scene.GUI) {
     getComposer(meshHit)
-      .then((res) => createGUI(res.data));
+      .then((res) => createGUI(res.data))
+      .catch(console.log('there was a fuck up'))
     scene.GUI = true;
     pickedCameraPosition = Object.assign({}, scene.cameras[0].position)
-  } else if (document.body.dialog) {
-    scene.GUI = false;
   }
 })
 
@@ -195,13 +203,17 @@ window.addEventListener("keydown", function (event) {
  })
 
 function createGUI(composerData) {
+  if(!composerData){
+    console.log('there was a fuck up')
+    return
+  }
   //store composer info
   let composerName = composerData.name;
   let composerDescription = composerData.description;
   let composerBirthday = 'Birth Date: ' + composerData.born + '<br />';
   let composerBirthCountry = 'Country of Birth: ' + composerData.birthCountry + '<br /><br />';
   let composerTime = 'Period: ' + composerData.timeperiod + '<br />';
-  let options = { w: window.innerWidth * .5, h: window.innerHeight * .75, x: guisystem.getCanvasSize().width * 0.3, y: guisystem.getCanvasSize().height * 0.2, heightTitle:40, textTitle: composerName, titleFontSize: 22, colorContent: 'rgb(24, 24, 24)', backgroundColor: 'black' };
+  let options = { w: window.innerWidth * .5, h: window.innerHeight * .75, x: guisystem.getCanvasSize().width * 0.3, y: guisystem.getCanvasSize().height * 0.2, heightTitle:40, textTitle: composerName, titleFontSize: 22, colorContent: 'rgb(24, 24, 24)', backgroundColor: 'black', closeButton: null };
   let dialog = new CASTORGUI.GUIWindow("dialog", options, guisystem);
   dialog.setVisible(true);
   let text = new CASTORGUI.GUIText("textDialog", { size: 20, color:'white', police: 'Palatino Linotype',text: composerTime + composerBirthday + composerBirthCountry + composerDescription, centerHorizontal:true }, guisystem, false);

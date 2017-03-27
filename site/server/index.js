@@ -2,13 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
-const R = require('ramda');
+const db = require('../../babylon/server/models');
 
-const server = app.listen(3000, () => {
-  console.log('listening on *:3000');
-})
-
-// const io = require('socket.io')(server);
+app.use('/period', require('./composers.js'));
 
 /* initiate middleware */
 app.use(bodyParser.urlencoded({extended: false}));
@@ -20,4 +16,12 @@ app.use(express.static(path.resolve(__dirname, '..', 'client')));
 // a script tag to your application's JavaScript file(s).
 app.get('*', function (request, response){
   response.sendFile(path.resolve(__dirname, '..', 'client', 'index.html'))
+})
+
+app.listen(3001, () => {
+  console.log('listening on *:3001');
+  db.sync()
+  .then(function(){
+    console.log('database is synced!')
+  })
 })

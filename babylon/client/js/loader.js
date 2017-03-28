@@ -67,7 +67,7 @@ export const loadScene = function (name, incremental, sceneLocation, then) {
           newScene.activeCamera.keysRight.push(68); // D
         }
       }
-
+      console.log(scene.activeCamera)
 
       var outdoorAmbience = new BABYLON.Sound('outdoorAmbience', 'Assets/outdoors.wav', scene, function(){
         outdoorAmbience.setVolume(0.04)
@@ -165,6 +165,15 @@ var checkKeyPressed = e => {
       engine.isPointerLock = false;
       scene.activeCamera.inputs.attached.mouse.previousPosition = null
     }
+    case 80:
+      if(scene.activeCamera.name === 'Camera04'){
+        scene.prevCamera = scene.activeCamera
+        scene.activeCamera = new BABYLON.VRDeviceOrientationFreeCamera ("Camera01", new BABYLON.Vector3 (0, 2, 0), scene, 0);
+        scene.activeCamera.attachControl(canvas);
+        // scene.activeCamera.speed = 0.5
+      } else {
+        scene.activeCamera = scene.prevCamera
+      }
     break;
   }
 }
@@ -196,7 +205,6 @@ window.addEventListener("click", function (evt) {
 window.addEventListener("keydown", function (event) {
   let keyCodes = event.keyCode === 87 || event.keyCode === 83 || event.keyCode === 65 || event.keyCode === 68 ||
   event.keyCode === 37 || event.keyCode === 38 || event.keyCode === 39 || event.keyCode === 40;
-
   if (pickedCameraPosition && keyCodes){
     let currentCameraPosition = scene.cameras[0].position
     let distanceAway = BABYLON.Vector3.Distance(pickedCameraPosition, currentCameraPosition)
@@ -224,6 +232,7 @@ function createGUI(composerData) {
   let text = new CASTORGUI.GUIText("textDialog", { size: 20, color:'white', police: 'Palatino Linotype',text: composerTime + composerBirthday + composerBirthCountry + composerDescription, centerHorizontal:true }, guisystem, false);
   // var textfield = new CASTORGUI.GUITextfield("mytextfield ", { x: 20, y: 100, zIndex: 5, w:100, h:25, placeholder:"Your text here" }, guisystem);
   dialog.add(text);
+  
   //add spotify, takes in name & id to append player to
   createArtistSpotify(composerName, '#dialog_content')
 

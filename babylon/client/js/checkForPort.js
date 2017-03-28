@@ -1,7 +1,6 @@
 
 
 let portraitArray = [
-
     'T29',
     'T30',
     'T32',

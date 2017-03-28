@@ -18,7 +18,6 @@ let sceneLocation = "../Scenes/";
 
 //declare demo to load
 let demo = {
-
   scene: "Espilit",
   incremental: false,
   binary: true,
@@ -34,7 +33,6 @@ let demo = {
     var postProcess = new BABYLON.RefractionPostProcess("Refraction", "/scenes/customs/refMap.jpg", new BABYLON.Color3(1.0, 1.0, 1.0), 0.5, 0.5, 1.0, scene.cameras[1]);
   }
 };
-
 
 export const loadScene = function (name, incremental, sceneLocation, then) {
   sceneChecked = false;
@@ -91,13 +89,12 @@ export const loadScene = function (name, incremental, sceneLocation, then) {
   canvas.style.opacity = 0;
 };
 
-// Render loop
-var renderFunction = function () {
-
+// Render Function
+const renderFunction = () => {
   // Render scene
   if (scene) {
     if (!sceneChecked) {
-      var remaining = scene.getWaitingItemsCount();
+      let remaining = scene.getWaitingItemsCount();
       engine.loadingUIText = "Streaming items..." + (remaining ? (remaining + " remaining") : "");
     }
 
@@ -105,56 +102,37 @@ var renderFunction = function () {
 
     // Streams
     if (scene.useDelayedTextureLoading) {
-      var waiting = scene.getWaitingItemsCount();
-      if (waiting > 0) {
-        status.innerHTML = "Streaming items..." + waiting + " remaining";
-      } else {
-        status.innerHTML = "";
-      }
+      let waiting = scene.getWaitingItemsCount();
+      if (waiting > 0) status.innerHTML = 'Streaming items...' + waiting + ' remaining';
+      else status.innerHTML = '';
     }
   }
 };
 
 // Launch render loop
-
 engine.runRenderLoop(renderFunction);
 
 // Resize
-window.addEventListener("resize", function () {
-  engine.resize();
-});
+window.addEventListener('resize', engine.resize.bind(engine))
 
 //Lock pointer if Q is pressed to move camera around 360 degrees
-window.addEventListener("keydown", checkKeyPressed, false);
+window.addEventListener('keydown', checkKeyPressed, false);
 
 //create GUI on composer portrait click
-window.addEventListener("click", createComposerGUI )
+window.addEventListener('click', createComposerGUI)
 
 //remove GUI window when user walks away
-window.addEventListener("keydown", removeComposerGUI)
+window.addEventListener('keydown', removeComposerGUI)
 
-var mode = "";
-if (demo.incremental) {
-  mode = ".incremental";
-} else if (demo.binary) {
-  mode = ".binary";
-}
+let mode = '';
+if (demo.incremental) mode = '.incremental';
+else if (demo.binary) mode = '.binary';
 
-if (demo.offline) {
-  engine.enableOfflineSupport = true;
-}
-else {
-  engine.enableOfflineSupport = false;
-}
+if (demo.offline) engine.enableOfflineSupport = true;
+else engine.enableOfflineSupport = false;
 
-loadScene(demo.scene, mode, sceneLocation, function () {
+loadScene(demo.scene, mode, sceneLocation, () => {
   BABYLON.StandardMaterial.BumpTextureEnabled = true;
-  if (demo.collisions !== undefined) {
-    scene.collisionsEnabled = demo.collisions;
-  }
-
-  if (demo.onload) {
-    demo.onload();
-  }
-
+  if (demo.collisions !== undefined) scene.collisionsEnabled = demo.collisions;
+  if (demo.onload) demo.onload()
 });

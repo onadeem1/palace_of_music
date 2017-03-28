@@ -43,10 +43,9 @@ let musicFileArray = {
     'T37': ['williams'],
     'T38': ['stravinsky'],
     'T39': ['sousa'],
-    'T40': ['ives']
-
-
-
+    'T40': ['ives'],
+    'T25': ['sibelius'],
+    'T26': ['mendelssohn']
 }
 
 function getCoords(input) {
@@ -104,6 +103,10 @@ function getCoords(input) {
             return { x: 9, y: 4.2, z: 14.1 }
         case 'T40':
             return { x: 6.6, y: 4.2, z: 14.1 }
+        case 'T26':
+            return { x: 6.2, y: 1.8, z: 0.5 }
+        case 'T25':
+            return { x: 3.3, y: 1.8, z: 0.5}
 
     }
 }

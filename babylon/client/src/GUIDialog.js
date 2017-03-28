@@ -3,7 +3,6 @@
 (function() {
 
     CASTORGUI.GUIDialog = function (id, options, guimanager, callback, append) {
-		console.log('CASTORGUI.GUIDIALOG RUN')
 
 		CASTORGUI.GUIManager.call(this, guimanager.canvas, guimanager.options);
 
@@ -78,9 +77,6 @@
 			eventButton.style.height = "25px";
 			eventButton.style.zIndex = 10000;
 			eventButton.onclick = function () { 
-				console.log('GUIDialog 1, dialog,', dialog)
-				console.log('GUIDialog 2, eventButton,', eventButton)
-				console.log('GUIDialog 3, this,', this)
 				document.body.removeChild(dialog);
 			};
 			this.getElementById(this.id).appendChild(eventButton);

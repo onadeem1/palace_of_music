@@ -108,8 +108,7 @@ function getCoords(input) {
     }
 }
 
-export default function loadAmbientMusic(currentScene, outdoorAmbience, finale) {
-
+export default function loadAmbientMusic(currentScene, outdoorAmbience, finale, pause) {
     if (finale) {
         outdoorAmbience.setVolume(0)
         lightShow(currentScene)
@@ -161,8 +160,9 @@ export default function loadAmbientMusic(currentScene, outdoorAmbience, finale) 
                     note2Particle.start()
                     note1Particle.emitter = spawner
                     note2Particle.emitter = spawner
-                    outdoorAmbience.setVolume(0.01)
-                    // myAnalyser.drawDebugCanvas()
+                    currentScene.ambientSong = ambientSong
+                    currentScene.part1 = note1Particle
+                    currentScene.part2 = note2Particle
                 }, intervalTime)
             }, {
                 spatialSound: true,
@@ -175,12 +175,8 @@ export default function loadAmbientMusic(currentScene, outdoorAmbience, finale) 
                 note2Particle.dispose()
                 let intervalTime = chance.integer({min: 1000, max: 1500})
                 currentScene.ambientPlaying = false
-                outdoorAmbience.setVolume(0.01)
                 setTimeout(function () {
                     let roll = chance.integer({min: 1, max: 20})
-                    console.log('roll for finale!', roll)
-                    // can never roll above a 21
-                    // need to fix the finalefunction
                     if (roll >= 21) {
                         loadAmbientMusic(currentScene, outdoorAmbience, true)
                     } else {
@@ -188,6 +184,7 @@ export default function loadAmbientMusic(currentScene, outdoorAmbience, finale) 
                     }
                 }, intervalTime)
             }
+        
         }
     }
 }

@@ -86,11 +86,8 @@
 		titreWindow.style.wordWrap = "break-word";
 
 		var that = this;
-		console.log('wtf is going on')
-		console.log(this)
 		if(this.buttonClose == true || this.buttonClose == "undefined") {
 			// window.addEventListener('')
-			console.log('that', that)
 				var close = document.createElement("button");
 				close.innerHTML = "X";
 				close.id = this.id+"_button";
@@ -102,11 +99,8 @@
 				close.style.height = "24px";
 				close.style.zIndex = 10000;
 				close.click = function () {
-					console.log(this)
 			};
 		}
-		console.log(close)
-		console.log(this)
 
 		var contentWindow = document.createElement("div");
 		contentWindow.id = this.id+"_content";
@@ -123,13 +117,8 @@
 
 		this.html.appendChild(window);
 		this.getElementById(this.id).appendChild(titreWindow);
-		console.log(close)
 		if(this.buttonClose == true || this.buttonClose == "undefined") {
-			console.log('true')
 			this.getElementById(this.id+"_titre").appendChild(close);
-			console.log(close.click)
-			// close.onclick.bind(this.getElementById(this.id))
-			console.log(this.id)
 
 		}
 		this.getElementById(this.id).appendChild(contentWindow);

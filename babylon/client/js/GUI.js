@@ -11,6 +11,14 @@ let guisystem = new CASTORGUI.GUIManager(canvas, css, options);
 let pickedCameraPosition, pickResult;
 
 function createCastorGUI(composerData) {
+    if(scene.ambientSong && !scene.ambientForceStop){
+    scene.ambientSong.dispose()
+    scene.ambientPlaying = false
+    scene.getMeshByName('fountain').dispose()
+    scene.part1.dispose()
+    scene.part2.dispose()
+    scene.ambientForceStop = true
+  }
   if (!composerData) return
 
   //store composer info

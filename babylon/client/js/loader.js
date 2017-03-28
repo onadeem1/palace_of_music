@@ -2,19 +2,16 @@
 
 //import files
 import $ from 'jquery'
-import { searchAlbumsAndPlaySong, getComposer, createArtistSpotify } from './musicFunctions.js'
+import { searchAlbumsAndPlaySong, getComposer} from './musicFunctions.js'
 import loadAmbientMusic from './ambientMusic.js'
 import lightShow from './lightShow.js'
 import checkForPort from './checkForPort.js'
+import createGUI from './GUI.js'
 
 
 //select canvas
 let canvas = document.getElementById("renderCanvas");
 
-// CastorGUI
-let css = "button {cursor:pointer;} #textDialog{margin:6px}";
-let options = { themeRoot: "./dist/", themeGUI: "default" };
-let guisystem = new CASTORGUI.GUIManager(canvas, css, options);
 let pickResult;
 let pickedCameraPosition;
 
@@ -74,29 +71,6 @@ export const loadScene = function (name, incremental, sceneLocation, then) {
         outdoorAmbience.play()
       }, { loop: true, autoplay: true });
       loadAmbientMusic(scene, outdoorAmbience)
-
-      //adjusting frames shown
-      // let frames = scene.getMeshByName("T33")
-      // frames.isVisible = false
-
-      // let T1 = scene.getMeshByName("T1")
-      // let T2 = scene.getMeshByName("T2")
-      // let T3 = scene.getMeshByName("T3")
-
-      // T1.isVisible = false
-      // T2.isVisible = false
-      // T3.isVisible = false
-
-      // let T4 = scene.getMeshByName("T4")
-      // let T5 = scene.getMeshByName("T5")
-
-      // T4.isVisible = false
-      // T5.isVisible = false
-
-      // let T20 = scene.getMeshByName("T20")
-      // T20.isVisible = false
-      // let blackPlaques = scene.getMeshByName("Chassis table Corbu")
-      // blackPlaques.isVisible = false
 
       let text1 = scene.getMeshByName("Text01")
       let text2 = scene.getMeshByName("Text02")
@@ -207,27 +181,7 @@ window.addEventListener("keydown", function (event) {
   }
 })
 
-function createGUI(composerData) {
-  if(!composerData){
-    console.log('there was a fuck up')
-    return
-  }
-  //store composer info
-  let composerName = composerData.name;
-  let composerDescription = composerData.description;
-  let composerBirthday = 'Birth Date: ' + composerData.born + '<br />';
-  let composerBirthCountry = 'Country of Birth: ' + composerData.birthCountry + '<br /><br />';
-  let composerTime = 'Period: ' + composerData.timeperiod + '<br />';
-  let options = { w: window.innerWidth * .5, h: window.innerHeight * .75, x: guisystem.getCanvasSize().width * 0.3, y: guisystem.getCanvasSize().height * 0.2, heightTitle:40, textTitle: composerName, titleFontSize: 22, colorContent: 'rgb(24, 24, 24)', backgroundColor: 'black', closeButton: null };
-  let dialog = new CASTORGUI.GUIWindow("dialog", options, guisystem);
-  dialog.setVisible(true);
-  let text = new CASTORGUI.GUIText("textDialog", { size: 20, color:'white', police: 'Palatino Linotype',text: composerTime + composerBirthday + composerBirthCountry + composerDescription, centerHorizontal:true }, guisystem, false);
-  // var textfield = new CASTORGUI.GUITextfield("mytextfield ", { x: 20, y: 100, zIndex: 5, w:100, h:25, placeholder:"Your text here" }, guisystem);
-  dialog.add(text);
-  //add spotify, takes in name & id to append player to
-  createArtistSpotify(composerName, '#dialog_content')
 
-}
 
 var mode = "";
 if (demo.incremental) {

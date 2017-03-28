@@ -3,10 +3,14 @@
 //import files
 import $ from 'jquery'
 import loadAmbientMusic from './ambientMusic.js'
-import lightShow from './lightShow.js'
 import {createComposerGUI, removeComposerGUI} from './GUI.js'
+import { checkKeyPressed } from './utilityFuncs.js'
+
 //select canvas
 let canvas = document.getElementById("renderCanvas");
+
+// Babylon Engine
+export let engine = new BABYLON.Engine(canvas, true);
 
 //scene
 let sceneChecked;
@@ -31,8 +35,6 @@ let demo = {
   }
 };
 
-// Babylon
-let engine = new BABYLON.Engine(canvas, true);
 
 export const loadScene = function (name, incremental, sceneLocation, then) {
   sceneChecked = false;
@@ -121,20 +123,6 @@ engine.runRenderLoop(renderFunction);
 window.addEventListener("resize", function () {
   engine.resize();
 });
-
-
-var checkKeyPressed = e => {
-  switch (e.keyCode) {
-    case 81:
-      if (engine.isPointerLock == false) {
-        engine.isPointerLock = true;
-      } else if (engine.isPointerLock == true) {
-        engine.isPointerLock = false;
-        scene.activeCamera.inputs.attached.mouse.previousPosition = null
-      }
-      break;
-  }
-}
 
 //Lock pointer if Q is pressed to move camera around 360 degrees
 window.addEventListener("keydown", checkKeyPressed, false);

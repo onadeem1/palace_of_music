@@ -159,7 +159,6 @@ export default function loadAmbientMusic(currentScene, outdoorAmbience, finale) 
                     note2Particle.start()
                     note1Particle.emitter = spawner
                     note2Particle.emitter = spawner
-                    outdoorAmbience.setVolume(0.01)
                     currentScene.ambientSong = ambientSong
                     currentScene.part1 = note1Particle
                     currentScene.part2 = note2Particle
@@ -175,7 +174,6 @@ export default function loadAmbientMusic(currentScene, outdoorAmbience, finale) 
                 note2Particle.dispose()
                 let intervalTime = chance.integer({ min: 1000, max: 1500 })
                 currentScene.ambientPlaying = false
-                outdoorAmbience.setVolume(0.01)
                 setTimeout(function () {
                     let roll = chance.integer({ min: 1, max: 20 })
                     console.log('roll for finale!', roll)

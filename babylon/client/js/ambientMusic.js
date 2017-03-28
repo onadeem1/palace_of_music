@@ -160,7 +160,9 @@ export default function loadAmbientMusic(currentScene, outdoorAmbience, finale) 
                     note1Particle.emitter = spawner
                     note2Particle.emitter = spawner
                     outdoorAmbience.setVolume(0.01)
-                    // myAnalyser.drawDebugCanvas()
+                    currentScene.ambientSong = ambientSong
+                    currentScene.part1 = note1Particle
+                    currentScene.part2 = note2Particle
                 }, intervalTime)
             }, {
                     spatialSound: true,

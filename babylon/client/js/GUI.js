@@ -1,5 +1,5 @@
 import { createArtistSpotify, getComposer } from './musicFunctions'
-import checkForPort from './checkForPort'
+import { checkForPort } from './utilityFuncs'
 
 // CastorGUI
 let canvas = document.getElementById("renderCanvas");
@@ -20,8 +20,10 @@ function createCastorGUI(composerData) {
 
   //GUI setup
   let options = { w: window.innerWidth * .5, h: window.innerHeight * .75, x: guisystem.getCanvasSize().width * 0.3, y: guisystem.getCanvasSize().height * 0.2, heightTitle: 40, textTitle: composerName, titleFontSize: 22, colorContent: 'rgb(24, 24, 24)', backgroundColor: 'black', closeButton: null };
+
   let dialog = new CASTORGUI.GUIWindow("dialog", options, guisystem);
   dialog.setVisible(true);
+
   let text = new CASTORGUI.GUIText("textDialog", { size: 20, color: 'white', police: 'Palatino Linotype', text: composerTime + composerBirthday + composerBirthCountry + composerDescription, centerHorizontal: true }, guisystem, false);
   dialog.add(text);
 
@@ -49,8 +51,8 @@ export function createComposerGUI(evt) {
     pickedCameraPosition = Object.assign({}, scene.cameras[0].position)
   }
 }
-export function removeComposerGUI(event) {
 
+export function removeComposerGUI(event) {
   let keyCodes = event.keyCode === 87 || event.keyCode === 83 || event.keyCode === 65 || event.keyCode === 68 ||
     event.keyCode === 37 || event.keyCode === 38 || event.keyCode === 39 || event.keyCode === 40;
 

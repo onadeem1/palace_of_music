@@ -27,6 +27,8 @@ let portraitArray = [
     'T39',
     'T40',
     'T13',
+    'T25',
+    'T26'
 ]
 
 

@@ -86,8 +86,6 @@
 		titreWindow.style.wordWrap = "break-word";
 
 		var that = this;
-		console.log('wtf is going on')
-		console.log(this)
 		if(this.buttonClose == true || this.buttonClose == "undefined") {
 			// window.addEventListener('')
 			console.log('that', that)

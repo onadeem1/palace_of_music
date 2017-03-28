@@ -207,6 +207,22 @@ let composerArray = [
       born: "August 22, 1928",
       birthCountry: "Romania",
       meshName: "T44"
+  },
+  {
+      name: "Sibelius",
+      description: "Jean Sibelius (1865 - 1957) was a Finnish composer of the late Romantic and early Modern period. Widely recognized as a national hero and Finalnd's finest composer, his music helped his nation develop a national identity during itts struggle from independence from Russia. His seven symphonies still remain staples at modern orchestras.",
+      timeperiod: "Post-Romantic",
+      born: "December 8, 1865",
+      birthCountry: "Finland",
+      meshName: "T25"
+  },
+  {
+      name: "Mendelssohn",
+      description: "Felix Mendelssohn (1809-1847) was a German composer of the early Romantic period. His musical taste was more conservative than those of his contemporaries, which include Liszt. Among his works include concertos, symphonies, and chamber works. He was among the most popular composers of the Romantic period.",
+      timeperiod: "Romantic",
+      born: "February 3, 1809",
+      birthCountry: "Germany",
+      meshName: "T26"
   }
 ]
 

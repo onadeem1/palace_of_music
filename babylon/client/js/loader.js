@@ -196,7 +196,7 @@ window.addEventListener("click", function (evt) {
   if (checkForPort(meshHit) && !scene.GUI) {
     getComposer(meshHit)
       .then((res) => createGUI(res.data))
-      .catch(console.log('there was a fuck up'))
+      .catch(console.log('There was a mistake'))
     scene.GUI = true;
     pickedCameraPosition = Object.assign({}, scene.cameras[0].position)
   }
@@ -232,7 +232,7 @@ function createGUI(composerData) {
   let text = new CASTORGUI.GUIText("textDialog", { size: 20, color:'white', police: 'Palatino Linotype',text: composerTime + composerBirthday + composerBirthCountry + composerDescription, centerHorizontal:true }, guisystem, false);
   // var textfield = new CASTORGUI.GUITextfield("mytextfield ", { x: 20, y: 100, zIndex: 5, w:100, h:25, placeholder:"Your text here" }, guisystem);
   dialog.add(text);
-  
+
   //add spotify, takes in name & id to append player to
   createArtistSpotify(composerName, '#dialog_content')
 

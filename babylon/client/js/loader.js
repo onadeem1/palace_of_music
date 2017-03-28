@@ -2,19 +2,13 @@
 
 //import files
 import $ from 'jquery'
-import { searchAlbumsAndPlaySong, getComposer } from './musicFunctions.js'
 import loadAmbientMusic from './ambientMusic.js'
 import lightShow from './lightShow.js'
-import checkForPort from './checkForPort.js'
-import createGUI from './GUI.js'
-
-
+import {createComposerGUI, removeComposerGUI} from './GUI.js'
 //select canvas
 let canvas = document.getElementById("renderCanvas");
 
-let pickResult;
-let pickedCameraPosition;
-
+//scene
 let sceneChecked;
 let sceneLocation = "../Scenes/";
 
@@ -39,7 +33,6 @@ let demo = {
 
 // Babylon
 let engine = new BABYLON.Engine(canvas, true);
-let musicFileArray = ['beet', 'beet2', 'brahms', 'brahms2', 'dvorak', 'dvorak2', 'shost', 'shost2', 'shubert']
 
 export const loadScene = function (name, incremental, sceneLocation, then) {
   sceneChecked = false;
@@ -143,45 +136,14 @@ var checkKeyPressed = e => {
   }
 }
 
+//Lock pointer if Q is pressed to move camera around 360 degrees
 window.addEventListener("keydown", checkKeyPressed, false);
-//Lock pointer if Q is pressed
 
-// Listen for Click
-window.addEventListener("click", function (evt) {
-  if (scene.GUI) {
-    document.body.removeChild(document.getElementById("dialog"))
-    scene.GUI = false;
-    return
-  }
-  pickResult = scene.pick(scene.pointerX, scene.pointerY)
-  const meshHit = pickResult.pickedMesh.name;
-  if (pickResult.distance > 3) {
-    return
-  }
-  if (checkForPort(meshHit) && !scene.GUI) {
-    getComposer(meshHit)
-      .then((res) => createGUI(res.data))
-      .catch(console.log('there was a fuck up'))
-    scene.GUI = true;
-    pickedCameraPosition = Object.assign({}, scene.cameras[0].position)
-  }
-})
+//create GUI on composer portrait click
+window.addEventListener("click", createComposerGUI )
 
-window.addEventListener("keydown", function (event) {
-  let keyCodes = event.keyCode === 87 || event.keyCode === 83 || event.keyCode === 65 || event.keyCode === 68 ||
-    event.keyCode === 37 || event.keyCode === 38 || event.keyCode === 39 || event.keyCode === 40;
-
-  if (pickedCameraPosition && keyCodes) {
-    let currentCameraPosition = scene.cameras[0].position
-    let distanceAway = BABYLON.Vector3.Distance(pickedCameraPosition, currentCameraPosition)
-    if (distanceAway > .5 && scene.GUI) {
-      document.body.removeChild(document.getElementById("dialog"))
-      scene.GUI = false
-    }
-  }
-})
-
-
+//remove GUI window when user walks away
+window.addEventListener("keydown", removeComposerGUI)
 
 var mode = "";
 if (demo.incremental) {

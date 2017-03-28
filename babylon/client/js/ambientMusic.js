@@ -1,27 +1,15 @@
 'use strict';
-
-// Load Chance
-var Chance = require('chance');
-
 import lightShow from './lightShow'
+import Chance from 'chance'
 
 // Instantiate Chance so it can be used
-var chance = new Chance();
+let chance = new Chance();
 
 let musicFileArray = {
-
-    'T29': [
-        'beet', 'beet2'
-    ],
-    'T30': [
-        'brahms', 'brahms2'
-    ],
-    'T32': [
-        'dvorak', 'dvorak2'
-    ],
-    'T41': [
-        'shost', 'shost2'
-    ],
+    'T29': ['beet', 'beet2'],
+    'T30': ['brahms', 'brahms2'],
+    'T32': ['dvorak', 'dvorak2'],
+    'T41': ['shost', 'shost2'],
     'T35': ['shubert'],
     'T28': ['mozart'],
     'T27': ['tchaik'],
@@ -44,9 +32,6 @@ let musicFileArray = {
     'T38': ['stravinsky'],
     'T39': ['sousa'],
     'T40': ['ives']
-
-
-
 }
 
 function getCoords(input) {
@@ -72,13 +57,13 @@ function getCoords(input) {
         case 'T11':
             return { x: 3.9, y: 1.3, z: 14.4 }
         case 'T42':
-            return {x: 1.2, y: 4.3, z: 14.2}
+            return { x: 1.2, y: 4.3, z: 14.2 }
         case 'T44':
-            return {x: -2.6, y: 4.1, z: 14.4}
+            return { x: -2.6, y: 4.1, z: 14.4 }
         case 'T45':
-            return {x: -5.6, y: 4.1, z: 14.4}
+            return { x: -5.6, y: 4.1, z: 14.4 }
         case 'T43':
-            return {x: -1, y: 4.1, z: 14.4}
+            return { x: -1, y: 4.1, z: 14.4 }
 
         case 'T34':
             return { x: -6.5, y: 1.8, z: -1.1 }
@@ -153,7 +138,7 @@ export default function loadAmbientMusic(currentScene, outdoorAmbience, finale) 
             note2Particle.direction2 = new BABYLON.Vector3(-3, 0.5, -1);
             note2Particle.disposeOnStop = true;
             let ambientSong = new BABYLON.Sound("Music", "Assets/Music/" + songFromPoint + ".wav", currentScene, function () {
-                let intervalTime = chance.integer({min: 1000, max: 1500})
+                let intervalTime = chance.integer({ min: 1000, max: 1500 })
                 setTimeout(function () {
                     ambientSong.attachToMesh(spawner)
                     ambientSong.play()
@@ -165,19 +150,19 @@ export default function loadAmbientMusic(currentScene, outdoorAmbience, finale) 
                     // myAnalyser.drawDebugCanvas()
                 }, intervalTime)
             }, {
-                spatialSound: true,
-                distanceModel: 'exponential',
-                panningModel: 'equalpower'
-            })
+                    spatialSound: true,
+                    distanceModel: 'exponential',
+                    panningModel: 'equalpower'
+                })
 
             ambientSong.onended = function () {
                 note1Particle.dispose()
                 note2Particle.dispose()
-                let intervalTime = chance.integer({min: 1000, max: 1500})
+                let intervalTime = chance.integer({ min: 1000, max: 1500 })
                 currentScene.ambientPlaying = false
                 outdoorAmbience.setVolume(0.01)
                 setTimeout(function () {
-                    let roll = chance.integer({min: 1, max: 20})
+                    let roll = chance.integer({ min: 1, max: 20 })
                     console.log('roll for finale!', roll)
                     // can never roll above a 21
                     // need to fix the finalefunction

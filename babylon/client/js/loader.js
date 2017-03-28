@@ -2,7 +2,7 @@
 
 //import files
 import $ from 'jquery'
-import { searchAlbumsAndPlaySong, getComposer} from './musicFunctions.js'
+import { searchAlbumsAndPlaySong, getComposer } from './musicFunctions.js'
 import loadAmbientMusic from './ambientMusic.js'
 import lightShow from './lightShow.js'
 import checkForPort from './checkForPort.js'
@@ -66,7 +66,7 @@ export const loadScene = function (name, incremental, sceneLocation, then) {
       }
 
 
-      var outdoorAmbience = new BABYLON.Sound('outdoorAmbience', 'Assets/outdoors.wav', scene, function(){
+      var outdoorAmbience = new BABYLON.Sound('outdoorAmbience', 'Assets/outdoors.wav', scene, function () {
         outdoorAmbience.setVolume(0.04)
         outdoorAmbience.play()
       }, { loop: true, autoplay: true });
@@ -131,15 +131,15 @@ window.addEventListener("resize", function () {
 
 
 var checkKeyPressed = e => {
-  switch(e.keyCode) {
+  switch (e.keyCode) {
     case 81:
-    if (engine.isPointerLock == false){
-      engine.isPointerLock = true;
-    } else if (engine.isPointerLock == true){
-      engine.isPointerLock = false;
-      scene.activeCamera.inputs.attached.mouse.previousPosition = null
-    }
-    break;
+      if (engine.isPointerLock == false) {
+        engine.isPointerLock = true;
+      } else if (engine.isPointerLock == true) {
+        engine.isPointerLock = false;
+        scene.activeCamera.inputs.attached.mouse.previousPosition = null
+      }
+      break;
   }
 }
 
@@ -148,7 +148,7 @@ window.addEventListener("keydown", checkKeyPressed, false);
 
 // Listen for Click
 window.addEventListener("click", function (evt) {
-  if(scene.GUI){
+  if (scene.GUI) {
     document.body.removeChild(document.getElementById("dialog"))
     scene.GUI = false;
     return
@@ -169,12 +169,12 @@ window.addEventListener("click", function (evt) {
 
 window.addEventListener("keydown", function (event) {
   let keyCodes = event.keyCode === 87 || event.keyCode === 83 || event.keyCode === 65 || event.keyCode === 68 ||
-  event.keyCode === 37 || event.keyCode === 38 || event.keyCode === 39 || event.keyCode === 40;
+    event.keyCode === 37 || event.keyCode === 38 || event.keyCode === 39 || event.keyCode === 40;
 
-  if (pickedCameraPosition && keyCodes){
+  if (pickedCameraPosition && keyCodes) {
     let currentCameraPosition = scene.cameras[0].position
     let distanceAway = BABYLON.Vector3.Distance(pickedCameraPosition, currentCameraPosition)
-    if (distanceAway > .5 && scene.GUI){
+    if (distanceAway > .5 && scene.GUI) {
       document.body.removeChild(document.getElementById("dialog"))
       scene.GUI = false
     }

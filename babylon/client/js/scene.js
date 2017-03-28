@@ -1,3 +1,5 @@
+/* global scene: true BABYLON */
+
 import { engine, canvas } from './loader.js'
 import loadAmbientMusic from './ambientMusic.js'
 
@@ -10,7 +12,6 @@ export const loadScene = function (name, incremental, sceneLocation, then) {
 
   BABYLON.SceneLoader.ForceFullSceneLoadingForIncremental = true;
   BABYLON.SceneLoader.Load(sceneLocation + name + "/", name + incremental + ".babylon", engine, function (newScene) {
-
     scene = newScene;
     scene.executeWhenReady(function () {
       canvas.style.opacity = 1;
@@ -36,14 +37,11 @@ export const loadScene = function (name, incremental, sceneLocation, then) {
       let text2 = scene.getMeshByName("Text02")
       text1.isVisible = false
       text2.isVisible = false
-
-      if (then) {
-        then();
-      }
+      if (then) then();
     });
   }, (evt) => {
-
     if (evt.lengthComputable) {
+
       engine.loadingUIText = "Loading, please wait..." + (evt.loaded * 100 / evt.total).toFixed() + "%";
 
     } else {
@@ -63,7 +61,6 @@ export const renderFunction = () => {
       let remaining = scene.getWaitingItemsCount();
       engine.loadingUIText = "Streaming items..." + (remaining ? (remaining + " remaining") : "");
     }
-
     scene.render();
 
     // Streams

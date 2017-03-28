@@ -1,4 +1,4 @@
-/******SCENE IS ON GLOBAL ******/
+/* global scene BABYLON */
 
 //import files
 import { createComposerGUI, removeComposerGUI } from './GUI.js';

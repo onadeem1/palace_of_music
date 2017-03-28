@@ -1,3 +1,5 @@
+/* global scene BABYLON CASTORGUI */
+
 import { createArtistSpotify, getComposer } from './musicFunctions'
 import { checkForPort } from './utilityFuncs'
 
@@ -19,9 +21,9 @@ function createCastorGUI(composerData) {
   let composerTime = 'Period: ' + composerData.timeperiod + '<br />';
 
   //GUI setup
-  let options = { w: window.innerWidth * .5, h: window.innerHeight * .75, x: guisystem.getCanvasSize().width * 0.3, y: guisystem.getCanvasSize().height * 0.2, heightTitle: 40, textTitle: composerName, titleFontSize: 22, colorContent: 'rgb(24, 24, 24)', backgroundColor: 'black', closeButton: null };
+  let GUIoptions = { w: window.innerWidth * .5, h: window.innerHeight * .75, x: guisystem.getCanvasSize().width * 0.3, y: guisystem.getCanvasSize().height * 0.2, heightTitle: 40, textTitle: composerName, titleFontSize: 22, colorContent: 'rgb(24, 24, 24)', backgroundColor: 'black', closeButton: null };
 
-  let dialog = new CASTORGUI.GUIWindow("dialog", options, guisystem);
+  let dialog = new CASTORGUI.GUIWindow("dialog", GUIoptions, guisystem);
   dialog.setVisible(true);
 
   let text = new CASTORGUI.GUIText("textDialog", { size: 20, color: 'white', police: 'Palatino Linotype', text: composerTime + composerBirthday + composerBirthCountry + composerDescription, centerHorizontal: true }, guisystem, false);
@@ -31,18 +33,20 @@ function createCastorGUI(composerData) {
   createArtistSpotify(composerName, '#dialog_content')
 }
 
-//retrieve composer information & use to create the GUI
+//retrieve composer information & use info to create the GUI
 export function createComposerGUI(evt) {
   if (scene.GUI) {
     document.body.removeChild(document.getElementById("dialog"))
     scene.GUI = false;
     return
   }
+
   pickResult = scene.pick(scene.pointerX, scene.pointerY)
   const meshHit = pickResult.pickedMesh.name;
   if (pickResult.distance > 3) {
     return
   }
+
   if (checkForPort(meshHit) && !scene.GUI) {
     getComposer(meshHit)
       .then((res) => createCastorGUI(res.data))
@@ -57,8 +61,10 @@ export function removeComposerGUI(event) {
     event.keyCode === 37 || event.keyCode === 38 || event.keyCode === 39 || event.keyCode === 40;
 
   if (pickedCameraPosition && keyCodes) {
+
     let currentCameraPosition = scene.cameras[0].position
     let distanceAway = BABYLON.Vector3.Distance(pickedCameraPosition, currentCameraPosition)
+
     if (distanceAway > .5 && scene.GUI) {
       document.body.removeChild(document.getElementById("dialog"))
       scene.GUI = false

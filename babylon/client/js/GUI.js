@@ -59,7 +59,14 @@ export function createComposerGUI(evt) {
 export function removeComposerGUI(event) {
   let keyCodes = event.keyCode === 87 || event.keyCode === 83 || event.keyCode === 65 || event.keyCode === 68 ||
     event.keyCode === 37 || event.keyCode === 38 || event.keyCode === 39 || event.keyCode === 40;
-
+  
+    if(event.keyCode === 77 && scene.ambientForceStop){
+      loadAmbientMusic(scene)
+      scene.ambientForceStop = false
+    }
+  if(event.keyCode === 61){
+    lightShow()
+    }
   if (pickedCameraPosition && keyCodes) {
 
     let currentCameraPosition = scene.cameras[0].position

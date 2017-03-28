@@ -2,6 +2,7 @@
 
 import { createArtistSpotify, getComposer } from './musicFunctions'
 import { checkForPort } from './utilityFuncs'
+import { loadAmbientMusic } from './ambientMusic'
 
 // CastorGUI
 let canvas = document.getElementById("renderCanvas");

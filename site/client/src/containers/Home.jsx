@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Header from '../components/Header.jsx';
-import Modal from '../components/PeriodModal.jsx';
+import Sidebar from '../components/Menu.jsx';
 
 class Home extends Component {
   constructor(props){
@@ -33,7 +33,7 @@ class Home extends Component {
       <div id="home">
         <Header classHide={ classHide } />
         <div>
-          <Modal />
+          <Sidebar />
         </div>
         <div id="maindiv" className="white">
           {this.props.children}

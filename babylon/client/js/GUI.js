@@ -6,6 +6,7 @@ import loadAmbientMusic from './ambientMusic'
 import lightShow from './lightShow'
 
 
+
 // CastorGUI
 let canvas = document.getElementById("renderCanvas");
 let css = "button {cursor:pointer;} #textDialog{margin:6px}";
@@ -87,6 +88,7 @@ export function removeComposerGUI(event) {
   } else if (event.keyCode === 48 && scene.final) {
     
   }
+
   if (pickedCameraPosition && keyCodes) {
 
     let currentCameraPosition = scene.cameras[0].position

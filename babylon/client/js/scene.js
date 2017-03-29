@@ -28,7 +28,7 @@ export const loadScene = function (name, incremental, sceneLocation, then) {
       }
 
       let outdoorAmbience = new BABYLON.Sound('outdoorAmbience', 'Assets/outdoors.wav', scene, function () {
-        outdoorAmbience.setVolume(0.04)
+        outdoorAmbience.setVolume(0.01)
         outdoorAmbience.play()
       }, { loop: true, autoplay: true });
       loadAmbientMusic(scene, outdoorAmbience)

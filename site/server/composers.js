@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = new express.Router();
-const Composer = require('../../babylon/server/models/composer-model');;
+const Composer = require('../../babylon/server/models/composer-model');
 module.exports = router;
 
 router.get('/:period', (req, res, next) => {

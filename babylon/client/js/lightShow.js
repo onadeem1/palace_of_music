@@ -7,6 +7,7 @@ var Chance = require('chance');
 var chance = new Chance();
 
 const randColorArr = {
+
     1: function () {
         return new BABYLON.Color3(1, chance.floating({min: 0, max: 1}), chance.floating({min: 0, max: 1}))
     },
@@ -69,6 +70,7 @@ export default function lightShow(currentScene) {
             sphereArray[i].scaling.y = fft[i] / 75;
             sphereArray[i].scaling.z = fft[i] / 75;
             sphereArray[i].childLight.intensity = fft[i] / 255;
+
         }
         let avg = Math.round(sum / fft.length)
         if (avg >= 3) {

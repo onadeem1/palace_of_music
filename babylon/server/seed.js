@@ -45,7 +45,7 @@ let composerArray = [
   },
   {
       name: "Haydn",
-      description: "Johann Sebastian Bach (1685-1750) was a German composer in the early Baroque period who was known for his innovation in counterpoint and harmonic organization. He was one of the first composers to embed intellectual motifs into his pieces and is remembered today for both the beauty and technical depth of his pieces.",
+      description: "Franz Joseph Haydn (1732-1809) was an Austrian composer of the Classical period known as the Father of the Symphony and String Quartet. During his lifetime, he served as a mentor to Mozart and a teacher to Beethoven. His musical style can be characterized as tonal and double in nature, combining two alternating themes at once.",
       timeperiod: "Classical",
       born: "March 31, 1685",
       birthCountry: "Austria",

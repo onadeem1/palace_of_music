@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines" : { "node" : "7.4.0" },
   "scripts": {
     "test": "mocha --watch babylon/server/test.js",
     "start-dev": "nodemon babylon/server/index.js --watch server",

@@ -10,6 +10,8 @@ const User = require('./models/user-model')
 
 module.exports = app
 
+app.set('port', (process.env.PORT || 3000))
+
 /* initiate middleware */
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -34,8 +36,8 @@ app.get('*', function (request, response){
 })
 
 
-app.listen(3000, () => {
-  console.log('listening on *:3000');
+app.listen(app.get('port'), () => {
+  console.log('listening on *:', app.get('port'));
   db.sync()
   .then(function(){
     console.log('database is synced!')

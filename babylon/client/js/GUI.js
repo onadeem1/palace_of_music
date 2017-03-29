@@ -2,7 +2,7 @@
 
 import { createArtistSpotify, getComposer } from './musicFunctions'
 import { checkForPort } from './utilityFuncs'
-import { loadAmbientMusic } from './ambientMusic'
+import  loadAmbientMusic from './ambientMusic'
 
 // CastorGUI
 let canvas = document.getElementById("renderCanvas");
@@ -68,7 +68,7 @@ export function createComposerGUI(evt) {
 export function removeComposerGUI(event) {
   let keyCodes = event.keyCode === 87 || event.keyCode === 83 || event.keyCode === 65 || event.keyCode === 68 ||
     event.keyCode === 37 || event.keyCode === 38 || event.keyCode === 39 || event.keyCode === 40;
-  
+
     if(event.keyCode === 77 && scene.ambientForceStop){
       loadAmbientMusic(scene)
       scene.ambientForceStop = false

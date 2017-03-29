@@ -20,5 +20,4 @@ yarn-error.log*
 
 /site/client/dist/bundle.js
 /site/client/dist/bundle.js.map
-/babylon/client/dist/bundle.js
-/babylon/client/dist/bundle.js.map
+

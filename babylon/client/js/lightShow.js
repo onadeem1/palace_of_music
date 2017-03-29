@@ -6,7 +6,7 @@ var Chance = require('chance');
 // Instantiate Chance so it can be used
 var chance = new Chance();
 
-const randColorArr = {
+export const randColorArr = {
 
     1: function () {
         return new BABYLON.Color3(1, chance.floating({min: 0, max: 1}), chance.floating({min: 0, max: 1}))

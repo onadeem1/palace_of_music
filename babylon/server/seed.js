@@ -210,7 +210,7 @@ let composerArray = [
   },
   {
       name: "Sibelius",
-      description: "Jean Sibelius (1865 - 1957) was a Finnish composer of the late Romantic and early Modern period. Widely recognized as a national hero and Finalnd's finest composer, his music helped his nation develop a national identity during itts struggle from independence from Russia. His seven symphonies still remain staples at modern orchestras.",
+      description: "Jean Sibelius (1865 - 1957) was a Finnish composer of the late Romantic and early Modern period. Widely recognized as a national hero and Finalnd's finest composer, his music helped his nation develop a national identity during its struggle from independence from Russia. His seven symphonies are staples at modern orchestras.",
       timeperiod: "Post-Romantic",
       born: "December 8, 1865",
       birthCountry: "Finland",

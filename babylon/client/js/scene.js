@@ -17,7 +17,7 @@ export const loadScene = function (name, incremental, sceneLocation, then) {
       canvas.style.opacity = 1;
       if (scene.activeCamera) {
         scene.activeCamera.attachControl(canvas);
-        scene.activeCamera.speed = 0.5
+        scene.activeCamera.speed = 0.1
 
         if (newScene.activeCamera.keysUp) {
           newScene.activeCamera.keysUp.push(87); // W

@@ -2,10 +2,10 @@ var path = require('path');
 var LiveReloadPlugin = require('webpack-livereload-plugin');
 
 module.exports = {
-  entry: './client/js/loader.js',
+  entry: './babylon/client/js/loader.js',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'client/dist')
+    path: path.resolve(__dirname, 'babylon/client/dist')
   },
   context: __dirname,
   devtool: 'source-map',
@@ -26,3 +26,4 @@ module.exports = {
     new LiveReloadPlugin({appendScriptTag: true})
   ]
 };
+

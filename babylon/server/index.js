@@ -27,15 +27,6 @@ app.get('/:meshName', (req, res, next) => {
 })
 
 
-
-app.get('/user', (req,res,next) => {
-  User.findAll()
-  .then(users => res.json(users))
-  .catch(next)
-})
-app.post('/user/:name', (req, res, next) => {
-  // User.create
-})
 // handle every other route with index.html, which will contain
 // a script tag to your application's JavaScript file(s).
 app.get('*', function (request, response){

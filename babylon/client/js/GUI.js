@@ -56,15 +56,12 @@ export function createComposerGUI(evt) {
   if (pickResult.distance > 3) {
     return
   }
-  console.log(meshHit)
   if (meshHit === 'T19'){
     let jimboSlice = new BABYLON.Sound("Music", "Assets/Music/" + "jimmy.wav", scene, function () {jimboSlice.play()})
     return
   }
   if( meshHit === 'Booklet04'){
-    console.log('sign in')
-    let x = new Date()
-    console.log(x.toDateString())
+      console.log(meshHit)
     return
   }
   if (checkForPort(meshHit) && !scene.GUI) {

@@ -24,59 +24,6 @@ const randomPosition = function () {
 
 let sphereArray = [];
 
-
-// const randomPositionSphere = function () {
-//     return new BABYLON.Vector3(chance.floating({min: -6, max: 2}), chance.floating({min: 0.4, max: 4.6}), chance.floating({min: 2, max: 9}))
-// }
-// function spawnThings(currentScene) {
-//     // var sphere = BABYLON
-//     //     .Mesh
-//     //     .CreateSphere("sphere1", 2, 0.5, currentScene);
-//     // sphere.position = new BABYLON.Vector3(-5.6, 2, 5)
-//     // sphere.emissiveColor = randColorArr[1]()
-//     // sphere.isVisible = false
-//     // for (var i = 0; i < 16; i++) {
-//     //     let newInstance = sphere.createInstance('sphere_' + i)
-//     //     newInstance.position = randomPosition()
-//     //     newInstance.scaling.x = sphere.scaling.x += (i / 100)
-//     //     newInstance.scaling.y = sphere.scaling.y += (i / 100)
-//     //     newInstance.scaling.z = sphere.scaling.z += (i / 100)
-//     //     // var light1 = new BABYLON.PointLight("point_light_" + i, newInstance.position, currentScene);
-//     //     // // newInstance.childLight = light1
-//     //     // light1.intensity = (i / 16)
-//     //     // light1.diffuse = randColorArr[chance.integer({min: 1, max: 3})]()
-//     //     sphereArray.push(newInstance)
-//     // }
-//     var ms = BABYLON
-//         .Mesh
-//         .CreateBox("skyBoxer", 0.5, currentScene); // create needed mesh
-//     ms.position = new BABYLON.Vector3(-6, 15, -9)
-//     ms.material = new BABYLONX.ShaderBuilder() // make Inistance
-//         .InLine('discard;')
-//         .BuildMaterial(currentScene);
-//     for (var i = -0; i < 17; i++) {
-
-//         for (var j = -0; j < 17; j++) {
-
-//             var mm = ms.clone();
-//             mm.position.x = (i % 2 == 0
-//                 ? i
-//                 : -i) * 1 + 1 * (Math.abs(i / 8) / i);
-//             mm.position.z = (j % 2 == 0
-//                 ? j
-//                 : -j) * 1 - 1 * (Math.abs(j / 8) / j);
-//             mm.material = new BABYLONX.ShaderBuilder() // make Inistance
-//                 .SetUniform('ip1', 'vec3')
-//                 .VertexShader('result = vec4( pos*(1.+ip1.x)+vec3(0.,pow(5.*ip1.x*pos.y,3.)/63.,0.),1.);')
-//                 .InLine('result = vec4( ip1.x, 0.,1.-min(1.,max(0.,' + BABYLONX.Shader.Print(i / 20) + '))*(1.-pow(ip1.x,3.)*30.),1. );') // Make Solid Color for Result
-//                 .BuildMaterial(currentScene); // Make ShaderMaterial
-
-//             mesh.push(mm);
-//         }
-//     }
-// }
-
-
 export default function lightShow(currentScene) {
     let fft;
     currentScene.lights[0].intensity = 0

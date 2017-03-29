@@ -188,7 +188,7 @@ let composerArray = [
       meshName: "T42"
   },{
       name: "Varèse",
-      description: "Edgard Varèse's (1883 - 1965) music emphasizes timbre and rhythm and he coined the term 'organized sound' in reference to his own musical aesthetic. Varèse's conception of music reflected his vision of 'sound as living matter' and of 'musical space as open rather than bounded'. emphasis on timbre, rhythm, and new technologies inspired a generation of musicians who came of age during the 1960s and 1970s. One of Varèse's greatest fans was the American guitarist and composer Frank Zappa, who, upon hearing a copy of The Complete Works of Edgard Varèse, Vol. 1 became obsessed with the composer's music.",
+      description: "Edgard Varèse's (1883 - 1965) music emphasizes timbre and rhythm and he coined the term 'organized sound' in reference to his own musical aesthetic. Varèse's conception of music reflected his vision of 'sound as living matter' and of 'musical space as open rather than bounded'. Emphasis on timbre, rhythm, and new technologies inspired a generation of musicians who came of age during the 1960s and 1970s. One of Varèse's greatest fans was the American guitarist and composer Frank Zappa, who, upon hearing a copy of The Complete Works of Edgard Varèse, Vol. 1 became obsessed with the composer's music.",
       timeperiod: "Contemporary",
       born: "December 22, 1883",
       birthCountry: "France",

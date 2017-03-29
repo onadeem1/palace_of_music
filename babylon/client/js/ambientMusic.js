@@ -1,6 +1,7 @@
 'use strict';
 import lightShow from './lightShow'
 import Chance from 'chance'
+import { randColorArr } from './lightShow'
 
 // Instantiate Chance so it can be used
 let chance = new Chance();
@@ -130,9 +131,9 @@ export default function loadAmbientMusic(currentScene, outdoorAmbience, finale) 
             note1Particle.maxSize = 0.2;
             note1Particle.minLifeTime = 0.3;
             note1Particle.maxLifeTime = 2.5;
-            note1Particle.emitRate = 50;
-            note1Particle.color1 = new BABYLON.Color4(0, 1, 0, 1.0);
-            note1Particle.color2 = new BABYLON.Color4(0.678431, 1, 0.184314, 1.0);
+            note1Particle.emitRate = 100;
+            note1Particle.color1 = randColorArr[chance.integer({min: 1, max: 3})]();
+            note1Particle.color2 = randColorArr[chance.integer({min: 1, max: 3})]();
             note1Particle.colorDead = new BABYLON.Color4(0, 0, 0.2, 0.0);
             note1Particle.direction1 = new BABYLON.Vector3(0, 0, 0);
             note1Particle.direction2 = new BABYLON.Vector3(-3, 0.5, -1);
@@ -143,9 +144,9 @@ export default function loadAmbientMusic(currentScene, outdoorAmbience, finale) 
             note2Particle.maxSize = 0.2;
             note2Particle.minLifeTime = 0.3;
             note2Particle.maxLifeTime = 2.5;
-            note2Particle.emitRate = 50;
-            note2Particle.color1 = new BABYLON.Color4(0, 1, 0, 1.0);
-            note2Particle.color2 = new BABYLON.Color4(0.678431, 1, 0.184314, 1.0);
+            note2Particle.emitRate = 100;
+            note2Particle.color1 = randColorArr[chance.integer({min: 1, max: 3})]();
+            note2Particle.color2 = randColorArr[chance.integer({min: 1, max: 3})]();
             note2Particle.colorDead = new BABYLON.Color4(0, 0, 0.2, 0.0);
             note2Particle.direction1 = new BABYLON.Vector3(0, 0, 0);
             note2Particle.direction2 = new BABYLON.Vector3(-3, 0.5, -1);

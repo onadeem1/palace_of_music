@@ -20,7 +20,7 @@ var time = 0;
 // var camera;
 var mesh = []
 
-const randColorArr = {
+export const randColorArr = {
     1: function () {
         return new BABYLON.Color3(1, chance.floating({min: 0, max: 1}), chance.floating({min: 0, max: 1}))
     },
@@ -136,7 +136,7 @@ export default function lightShow(currentScene) {
         //     sphereArray[i].scaling.z = fft[i] / 75;
         //     // sphereArray[i].childLight.intensity = fft[i] / 255;
         // }
-        for (var ji = 0; ji < 256; ji++) { 
+        for (var ji = 0; ji < 256; ji++) {
 			mesh[Math.min(16 * 16, ji)].material.setVector3('ip1', { x: fft[Math.floor(ji/2)]/100., y: 0., z: 0. });
         }
         let avg = Math.round(sum / fft.length)

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import Modal from '../components/PeriodModal.jsx';
+import Modal from '../components/Menu.jsx';
 
 const Header = (props) => {
   const isHide = props.classHide ? 'hide' : ''

@@ -5,6 +5,8 @@ const app = express();
 const chalk = require('chalk')
 const db = require('./models')
 const Composer = require('./models/composer-model')
+const User = require('./models/user-model')
+
 
 module.exports = app
 
@@ -23,6 +25,8 @@ app.get('/:meshName', (req, res, next) => {
   .then(composer => res.json(composer))
   .catch(next)
 })
+
+
 // handle every other route with index.html, which will contain
 // a script tag to your application's JavaScript file(s).
 app.get('*', function (request, response){

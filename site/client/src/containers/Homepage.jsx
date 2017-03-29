@@ -19,10 +19,11 @@ class Homepage extends Component {
           <Parallax bgImage="./assets/violin.jpg" strength={600}>
             <Landing1 />
           </Parallax>
+          <div className="mouse"></div>
         </div>
 
         <div className="parallax-container">
-          <Parallax bgImage="./assets/Record-Player-Wallpaper.jpg" strength={500}>
+          <Parallax bgImage="" strength={500}>
             <Landing2 />
           </Parallax>
         </div>

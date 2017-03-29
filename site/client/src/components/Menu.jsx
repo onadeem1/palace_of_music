@@ -54,7 +54,7 @@ const Menu = () => {
             <Link to="/museum/music">Music</Link>
           </li>
           <li>
-            <Link to="/museum/members">Become a Member</Link>
+            <Link to="/museum/members">Members</Link>
           </li>
           <li className="dropdown">
             <a href="#" className="dropdown-toggle" data-toggle="dropdown">The Collection <span className="caret"></span></a>

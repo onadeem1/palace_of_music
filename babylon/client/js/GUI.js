@@ -2,6 +2,9 @@
 
 import { createArtistSpotify, getComposer } from './musicFunctions'
 import { checkForPort } from './utilityFuncs'
+import loadAmbientMusic from './ambientMusic'
+import lightShow from './lightShow'
+
 
 // CastorGUI
 let canvas = document.getElementById("renderCanvas");
@@ -48,13 +51,22 @@ export function createComposerGUI(evt) {
     scene.GUI = false;
     return
   }
-
   pickResult = scene.pick(scene.pointerX, scene.pointerY)
   const meshHit = pickResult.pickedMesh.name;
   if (pickResult.distance > 3) {
     return
   }
-
+  console.log(meshHit)
+  if (meshHit === 'T19'){
+    let jimboSlice = new BABYLON.Sound("Music", "Assets/Music/" + "jimmy.wav", scene, function () {jimboSlice.play()})
+    return
+  }
+  if( meshHit === 'Booklet04'){
+    console.log('sign in')
+    let x = new Date()
+    console.log(x.toDateString())
+    return
+  }
   if (checkForPort(meshHit) && !scene.GUI) {
     getComposer(meshHit)
       .then((res) => createCastorGUI(res.data))
@@ -68,13 +80,16 @@ export function removeComposerGUI(event) {
   let keyCodes = event.keyCode === 87 || event.keyCode === 83 || event.keyCode === 65 || event.keyCode === 68 ||
     event.keyCode === 37 || event.keyCode === 38 || event.keyCode === 39 || event.keyCode === 40;
   
-    if(event.keyCode === 77 && scene.ambientForceStop){
-      loadAmbientMusic(scene)
-      scene.ambientForceStop = false
-    }
-  if(event.keyCode === 61){
-    lightShow()
-    }
+  if (event.keyCode === 77 && scene.ambientForceStop){
+    loadAmbientMusic(scene)
+    scene.ambientForceStop = false
+  }
+  if (event.keyCode === 48 && !scene.final){
+    lightShow(scene)
+    scene.final = true
+  } else if (event.keyCode === 48 && scene.final) {
+    
+  }
   if (pickedCameraPosition && keyCodes) {
 
     let currentCameraPosition = scene.cameras[0].position

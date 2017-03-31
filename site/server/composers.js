@@ -11,6 +11,7 @@ router.get('/:period', (req, res, next) => {
       timeperiod: req.params.period}
   })
   .then(composers => {
+    console.log('composers from server:',composers);
     return res.json(composers)
   })
   .catch(next);

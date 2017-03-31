@@ -48,10 +48,7 @@ const Menu = () => {
             <Link to="/museum/tickets">Tickets</Link>
           </li>
           <li>
-            <Link to="/museum/map">Map & Location</Link>
-          </li>
-          <li>
-            <Link to="/museum/music">Music</Link>
+            <Link to="/museum/map">Museum Map</Link>
           </li>
           <li>
             <Link to="/museum/members">Members</Link>
@@ -71,6 +68,9 @@ const Menu = () => {
               </li>
               <li>
                 <Link to="/period/Post-Romantic">Post Romantic</Link>
+              </li>
+              <li>
+                <Link to="/period/Contemporary">Contemporary</Link>
               </li>
             </ul>
           </li>

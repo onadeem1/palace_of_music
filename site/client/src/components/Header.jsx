@@ -4,7 +4,7 @@ import Modal from '../components/Menu.jsx';
 
 const Header = (props) => {
   const isHide = props.classHide ? 'hide' : ''
-  console.log(props);
+  
   return (
     <nav id="header" className={"App navbar navbar-default navbar-fixed-top " + isHide}>
       <div id="title" className="App-header container">

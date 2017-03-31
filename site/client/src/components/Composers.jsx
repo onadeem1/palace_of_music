@@ -11,10 +11,10 @@ const Composers = (props) => {
     return (
       <div id="period">
         <div className="parallax-container composer">
-          <Parallax id="image" style={{height: 1000}} bgImage="../assets/Record-Player-Wallpaper.jpg" strength={400} blur={{min:1, max:3}}>
+          <Parallax id="image" bgImage="../assets/margravialoperahouse.jpg" strength={400} blur={{min:1, max:3}}>
             <div className="parallax-container">
               <div id="timeperiod">
-                <h3>{composers[0].timeperiod}</h3>
+                <h3 style={{fontSize: "40px"}}>{composers[0].timeperiod}</h3>
               </div>
             </div>
           </Parallax>

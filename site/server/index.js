@@ -4,13 +4,14 @@ const path = require('path');
 const app = express();
 const db = require('../../babylon/server/models');
 
-app.use('/period', require('./composers.js'));
 
 /* initiate middleware */
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
   // serve static assets normally
 app.use(express.static(path.resolve(__dirname, '..', 'client')));
+app.use('/period', require('./composers.js'));
+app.use('/museum', require('./visitors.js'));
 
 // handle every other route with index.html, which will contain
 // a script tag to your application's JavaScript file(s).

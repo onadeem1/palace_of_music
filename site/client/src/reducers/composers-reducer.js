@@ -30,10 +30,11 @@ export const getComposers = selectedComposers => ({
 
 /* Action Dispatchers */
 export const getComposersByPeriod = periodName => {
-  console.log(periodName);
+  console.log('dispatched period', periodName);
   return dispatch => {
     axios.get(`/period/${periodName}`)
       .then(composers => {
+        console.log('axios get composers:', composers);
         dispatch(getComposers(composers.data))
       })
   }

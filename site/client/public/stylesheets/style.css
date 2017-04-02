@@ -257,7 +257,10 @@ li {
 }
 .membershipPage {
   /*background-image: url('');*/
-  background-repeat: no-repeat;
+  /*font-size: 2em;*/
+  /*top: 10%;*/
+
+  /*background-repeat: no-repeat;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -269,11 +272,17 @@ li {
   z-index: -1;
   line-height: 300px;
   text-align: center;
-  color: "wheat";
-  /*font-size: 2em;*/
-  /*top: 10%;*/
+  color: "wheat";*/
 }
- #membershipTitle>h1{
+@media (max-width: 1000px) {
+.membershipPage{}
+.member{left:20%;top:25%;position:absolute;width:50%;height:300px;background:rgb(255, 255, 255);text-align:center;max-width:500px;max-height:500px;}
+}
+@media (min-width: 1000px) {
+.membershipPage{left:38%;top:15%;position:absolute;}
+.member{width:300px;height:100%;left:38%px;height:300px;background:rgb(255, 255, 255);text-align:right;max-width:500px;max-height:500px;}
+}
+ /*#membershipTitle>h1{
    font-family: 'Great Vibes', Helvetica, serif !important;
    position: relative;
    text-align: center;
@@ -282,13 +291,21 @@ li {
    display: flex;
   flex-direction: column;
   justify-content: center;
- }
+ }*/
 .member {
   position: relative;
   font-family: "Quicksand";
   margin: auto;
-  line-height: 30px;
+  line-height: 20px;
   /*display: inline-block;*/
+}
+.memberslist {
+  -webkit-columns: 300px 2;
+   -moz-columns: 300px 2;
+        columns: 300px 2;
+}
+.memberdate {
+  text-align: left;
 }
  /*  map  */
 .map-container {

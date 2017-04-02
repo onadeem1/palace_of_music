@@ -12,8 +12,9 @@ const Members = (props) => {
             {
               members && members.map(member => {
                 return (
-                  <li style={{color: "black", height: "30px", fontSize:"24px"}} key={member.id}>
-                    {`${member.first} ${member.last}............${member.date}`}
+                  <li className="memberslist"style={{color: "black", height: "30px", fontSize:"24px"}} key={member.id}>
+                    <div className="membername">{`${member.first} ${member.last}`}</div>
+                    <div className="memberdate">{`${member.date}`}</div>
                   </li>
                 )
               })

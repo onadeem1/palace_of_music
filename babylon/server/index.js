@@ -14,8 +14,31 @@ module.exports = app
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-  // serve static assets normally
+// serve static assets normally
 app.use(express.static(path.resolve(__dirname, '..', 'client')));
+
+// add headers
+app.use((req, res, next) => {
+
+    // website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+
+    // request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+
+    // request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'Authorization');
+
+    next();
+});
+
+// spotify router
+app.use('/spotify', require('./routes/spotify.js'));
+
+// error handling
+app.use((err, req, res, next) =>
+  res.status(err.status || 500).send(err.message || 'Internal server error.'));
+
 app.get('/:meshName', (req, res, next) => {
   Composer.findOne({
     where: {

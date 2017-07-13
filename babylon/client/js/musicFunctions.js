@@ -19,23 +19,15 @@ export const searchAlbumsAndPlaySong = (query) => {
 }
 
 //database request
-export const getComposer = (meshHit) => {
-  return axios.get('/' + meshHit)
-}
+export const getComposer = meshHit => axios.get(`/${meshHit}`)
 
 //spotify code
 let spotifyURL = '<iframe src="https://embed.spotify.com/?uri='
 let spotifyOptions = ' width="500" height="350" frameborder="0" allowtransparency="true"></iframe>'
 
 const getArtistURI = (name) => {
-  return axios.get('https://api.spotify.com/v1/search', {
-    params: {
-      q: name,
-      type: 'artist'
-    }
-  })
-  .then(res => res.data.artists.items[0])
-  .then(artist => artist.uri)
+  return axios.get(`/spotify/${name}`)
+  .then(artist => artist.data.uri)
 }
 
 const appendSpotify = (id, uri) => {

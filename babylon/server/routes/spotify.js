@@ -1,5 +1,4 @@
 const router = module.exports = require('express').Router()
-const { client_id, client_secret } = require('../../../config.js');
 const Promise = require('bluebird')
 const request = Promise.promisify(require('request'));
 
@@ -8,7 +7,7 @@ Promise.promisifyAll(request);
 var authOptions = {
   url: 'https://accounts.spotify.com/api/token',
   headers: {
-    'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
+    'Authorization': 'Basic ' + (new Buffer(process.env.CLIENT_ID + ':' + process.env.CLIENT_SECRET).toString('base64'))
   },
   form: {
     grant_type: 'client_credentials'
